@@ -91,6 +91,6 @@ placementRef:
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
-- name: policy-role-mariadb-rollout
+- name: policy-rbac-mariadb
   kind: Policy
   apiGroup: policy.open-cluster-management.io
