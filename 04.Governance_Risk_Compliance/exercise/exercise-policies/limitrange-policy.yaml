@@ -31,7 +31,7 @@ spec:
                 spec:
                   limits:
                   - default:
-                      memory: 1024Mi
+                      memory: 512Mi
                     defaultRequest:
                       memory: 256Mi
                     type: Container
