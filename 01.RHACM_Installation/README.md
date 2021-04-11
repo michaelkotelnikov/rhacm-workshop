@@ -1,8 +1,3 @@
-# Advanced Cluster Management Workshop Exercises
-
-This document concludes exercises for the Advanced Cluster Management workshop. The workshop is presented in - [https://docs.google.com/presentation/d/1jhsO7tSsFoNwYouF-iBnlw5kA7Nx0Hoi-4HK0fFP1YI/edit?usp=sharing](https://docs.google.com/presentation/d/1jhsO7tSsFoNwYouF-iBnlw5kA7Nx0Hoi-4HK0fFP1YI/edit?usp=sharing)
-
-
 # Exercise 1 - Advanced Cluster Management Installation 
 
 In the [opentlc](https://labs.opentlc.com) lab environment, The Advanced Cluster Management for Kubernetes operator is already installed. Usually, the installed operator is at an older version than the latest operator available. Therefore, it is recommended to remove the old Advanced Cluster Management operator, and replace it with a new one.
