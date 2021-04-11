@@ -161,62 +161,62 @@ metadata:
   name: policy-networkpolicy-webserver
   namespace: rhacm-policies
   annotations:
-	policy.open-cluster-management.io/standards: NIST SP 800-53
-	policy.open-cluster-management.io/categories: SC System and Communications Protection
-	policy.open-cluster-management.io/controls: SC-7 Boundary Protection
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/categories: SC System and Communications Protection
+    policy.open-cluster-management.io/controls: SC-7 Boundary Protection
 spec:
   remediationAction: enforce
   disabled: false
   policy-templates:
-	- objectDefinition:
-    	apiVersion: policy.open-cluster-management.io/v1
-    	kind: ConfigurationPolicy
-    	metadata:
-      	name: policy-networkpolicy-denyall-webserver
-    	spec:
-      	remediationAction: enforce # the policy-template spec.remediationAction is overridden by the preceding parameter value for spec.remediationAction.
-      	severity: medium
-      	namespaceSelector:
-        	include: ["webserver-acm"]
-      	object-templates:
-        	- complianceType: musthave
-          	objectDefinition:
-            	kind: NetworkPolicy
-            	apiVersion: networking.k8s.io/v1
-            	metadata:
-              	name: deny-by-default
-            	spec:
-              	podSelector:
-              	ingress: []
-	- objectDefinition:
-    	apiVersion: policy.open-cluster-management.io/v1
-    	kind: ConfigurationPolicy
-    	metadata:
-      	name: policy-networkpolicy-allow-ingress-webserver
-    	spec:
-      	remediationAction: enforce # the policy-template spec.remediationAction is overridden by the preceding parameter value for spec.remediationAction.
-      	severity: medium
-      	namespaceSelector:
-        	include: ["webserver-acm"]
-      	object-templates:
-        	- complianceType: musthave
-          	objectDefinition:
-            	kind: NetworkPolicy
-            	apiVersion: networking.k8s.io/v1
-            	metadata:
-              	name: allow-ingress-8080
-            	spec:
-              	ingress:
-              	- ports:
-                	- protocol: TCP
-                  	port: 8080
-              	- from:
-                	- namespaceSelector:
-                    	matchLabels:
-                      	network.openshift.io/policy-group: ingress
-              	podSelector: {}
-              	policyTypes:
-              	- Ingress
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-networkpolicy-denyall-webserver
+        spec:
+          remediationAction: enforce # the policy-template spec.remediationAction is overridden by the preceding parameter value for spec.remediationAction.
+          severity: medium
+          namespaceSelector:
+            include: ["webserver-acm"]
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                kind: NetworkPolicy
+                apiVersion: networking.k8s.io/v1
+                metadata:
+                  name: deny-by-default
+                spec:
+                  podSelector:
+                  ingress: []
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-networkpolicy-allow-ingress-webserver
+        spec:
+          remediationAction: enforce # the policy-template spec.remediationAction is overridden by the preceding parameter value for spec.remediationAction.
+          severity: medium
+          namespaceSelector:
+            include: ["webserver-acm"]
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                kind: NetworkPolicy
+                apiVersion: networking.k8s.io/v1
+                metadata:
+                  name: allow-ingress-8080
+                spec:
+                  ingress:
+                  - ports:
+                    - protocol: TCP
+                      port: 8080
+                  - from:
+                    - namespaceSelector:
+                        matchLabels:
+                          network.openshift.io/policy-group: ingress
+                  podSelector: {}
+                  policyTypes:
+                  - Ingress
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
