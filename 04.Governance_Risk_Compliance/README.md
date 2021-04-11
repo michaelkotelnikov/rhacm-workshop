@@ -125,7 +125,7 @@ The above command creates two objects _Policy_ and _PlacementBinding_.
 
 After the creation of the objects, navigate to **Governance Risk and Compliance** in the Red Hat Advanced Cluster Management for Kubernetes console. Note that the policy is configured, and cluster-a is compliant.
 
-Make sure that the policy is effective by trying to navigate to the application once again - **https://<webserver application route>/application.html**. (The application should not be accessible).
+Make sure that the policy is effective by trying to navigate to the application once again - **https://&lt;webserver application route>/application.html**. (The application should not be accessible).
 
 ### Stage 2 - Allow traffic from the Ingress Controller
 
@@ -240,9 +240,9 @@ After applying the above policy, the application will be reachable from OpenShif
 
 Make sure that cluster-a is compliant to the policy by navigating to **Governance Risk and Compliance** in the Red Hat Advanced Cluster Management for Kubernetes console.
 
-[networkpolicy-status](images/networkpolicy-status.png)
+![networkpolicy-status](images/networkpolicy-status.png)
 
-Make sure that the application is accessible now at - **https://<webserver application route>/application.html**.
+Make sure that the application is accessible now at - **https://&lt;webserver application route>/application.html**.
 
 ## Policy #2 - Quota Management
 
@@ -258,10 +258,10 @@ metadata:
 spec:
   limits:
   - default:
-  	memory: 512Mi
-	defaultRequest:
-  	memory: 256Mi
-	type: Container
+      memory: 512Mi
+      defaultRequest:
+      memory: 256Mi
+      type: Container
 ```
 
 In order to apply the LimitRange object to cluster-a using Red Hat Advanced Cluster Management for Kubernetes, run the next commands -
@@ -396,7 +396,7 @@ Before you start this section of the exercise, make sure you delete the namespac
 
 5. Make sure that the policies are deployed in the **Governance Risk and Compliance** tab in the Advanced Cluster Management for Kubernetes console.
 
-[policies-overview](images/policies-overview.png)
+![policies-overview](images/policies-overview.png)
 
 
 6. Edit the LimitRange policy in [https://github.com/&lt;your-username>/rhacm-workshop/blob/master/04.Governance_Risk_Compliance/exercise/exercise-policies/limitrange-policy.yaml](https://github.com/michaelkotelnikov/rhacm-workshop/blob/master/04.Governance_Risk_Compliance/exercise/exercise-policies/limitrange-policy.yaml). Change the default container limit from 512Mi to 1024Mi.

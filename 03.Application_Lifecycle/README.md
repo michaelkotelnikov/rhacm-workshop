@@ -1,6 +1,6 @@
 # Exercise 3 - Application Lifecycle
 
-In this exercise you will deploy a demo application onto the managed cluster using Red Hat Advanced Cluster Management for Kubernetes. You will manage the application versions, and use cluster labels to configure placement mechanisms.
+In this exercise you will deploy a demo application onto the managed cluster using Red Hat Advanced Cluster Management for Kubernetes. You will manage the application versions and use cluster labels to configure placement mechanisms.
 
 In this exercise you will try to deploy an application that manages two versions -
 
@@ -9,7 +9,7 @@ In this exercise you will try to deploy an application that manages two versions
 
 Both versions of the application are stored in the same Git repository, while the **production** version is stored in the **master** branch, and the **development** version is stored in the **dev** branch.
 
-The Application is a simple web application that provides a different output in each version. The **development** application will provide one web page, while the **production** application will provide another.
+The Application is a simple web application that provides a different output in each version. The **development** application will provide a web page, while the **production** application will provide a different web page.
 
 Each version of the application will run on a cluster with the relevant tag. The application with the **development** version will run on clusters with the **environment=dev** label, while the application with the **production** version will run on clusters with the **environment=production** label. 
 
@@ -71,7 +71,7 @@ EOF
 <hub> $ oc apply -f placementrule-dev.yaml
 ```
 
-* **Subscription** - Create a subscription that binds between the defined above **PlacementRule** and **Channel** resources. The subscription will point to the relevant path on which the application resources are present - _application-lifecycle/exercise-application/application-resources/_. Furthermore, the Subscription will point to the **dev** branch, in order to deploy the development version of the application.
+* **Subscription** - Create a subscription that binds between the defined above **PlacementRule** and **Channel** resources. The subscription will point to the relevant path on which the application resources are present - _03.Application_Lifecycle/exercise-application/application-resources_. Furthermore, the Subscription will point to the **dev** branch, in order to deploy the development version of the application.
 
 ```
 <hub> $ cat >> subscription-dev.yaml << EOF
@@ -123,9 +123,9 @@ EOF
 <hub> $ oc apply -f application.yaml 
 ```
 
-After the resources are created. In the RHACM portal, navigate to **Application Lifecycle **-> **&lt;application name>**. And make sure that the resources are created.
+After the resources are created. In the RHACM portal, navigate to **Application Lifecycle** -> **&lt;application name>**. And make sure that the resources are created.
 
-Click on the route resource, and navigate to the URL - **https://<route-url>/application.html**.
+Click on the route resource, and navigate to the URL - **https://&lt;route-url>/application.html**.
 
 Make sure that the application is running the **development version** on cluster-a. Login into cluster-a, and validate that the application runs there.
 

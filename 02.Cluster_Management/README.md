@@ -8,8 +8,8 @@ In this exercise you will import an existing cluster to Red Hat Advanced Cluster
 1. Import an existing cluster to Red Hat Advanced Cluster Management. Use the [workshop’s presentation](https://docs.google.com/presentation/d/1jhsO7tSsFoNwYouF-iBnlw5kA7Nx0Hoi-4HK0fFP1YI/edit?usp=sharing) as a guideline to the process -
 *   **Name**: cluster-a
 *   **Additional labels**: 
-        *   environment=dev
-        *   owner=&lt;your-name>
+    * environment=dev
+    * owner=&lt;your-name>
 2. Log into the managed cluster using the **oc** cli tool.
 
 ```
@@ -61,5 +61,5 @@ In this exercise you will be using the Red Hat Advanced Cluster Management porta
 
 **NOTE**: Do this exercise after you are finished with the **whole** workshop. The upgrading process may take up to an hour to complete.
 
-1. Change the **channel version** on the cluster-a from stable-**4.4 **to stable-**4.5**.
+1. Change the **channel version** on the cluster-a from stable-**4.4** to stable-**4.5**.
 2. Upgrade the cluster using Red Hat Advanced Cluster Management.

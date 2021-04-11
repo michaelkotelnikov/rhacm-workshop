@@ -17,7 +17,7 @@ To remove the old version of Advanced Cluster Management -
 *   Log into the OpenShift Console of the HUB cluster using the admin credentials (e.g - [https://console-openshift-console.apps.cluster.1111.sandbox.opentlc.com](https://console-openshift-console.apps.cluster-4ae4.4ae4.sandbox565.opentlc.com))
 *   Navigate to **Operators** -> **Installed Operators** -> **Advanced Cluster Management for Kubernetes** -> **MultiClusterHub**.
 *   Delete the MultiClusterHub multiclusterhub instance.
-*   Wait until there are no pods in a _Terminating_ state in the _open-cluster-management _namespace on the HUB cluster.
+*   Wait until there are no pods in a _Terminating_ state in the _open-cluster-management_ namespace on the HUB cluster.
 
 ```
 <hub> $ oc login -u admin -p <password> https://api.cluster.1111.sandbox.opentlc.com:6443
