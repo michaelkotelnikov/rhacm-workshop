@@ -137,7 +137,7 @@ Make sure that the application is running the **development version** on cluster
 
 Now that you have the **Development** version of the application running, it’s time to deploy the **Production** version alongside the **Development** version. Create the next resources -
 
-* **PlacementRule** - Create a PlacementRule that aggregates the **production** clusters using the **environment=dev** label.
+* **PlacementRule** - Create a PlacementRule that aggregates the **production** clusters using the **environment=production** label.
 
 ```
 <hub> $ cat >> placementrule-production.yaml << EOF
@@ -156,7 +156,7 @@ spec:
       environment: production
 EOF
 
-<hub> oc apply -f placementrule-production.yaml
+<hub> $ oc apply -f placementrule-production.yaml
 ```
 
 *   **Subscription** - Create a Subscription that maps the newly created **PlacementRule** to the previously created **Channel**. The subscription uses the **master** branch in the **Channel** in order to run the **production** version of the application.
