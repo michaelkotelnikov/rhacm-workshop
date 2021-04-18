@@ -45,6 +45,7 @@ spec:
         metadata:
           name: mariadb-operators-group-config-policy
         spec:
+          remediationAction: enforce
           severity: high
           object-templates:
             - complianceType: mustonlyhave
