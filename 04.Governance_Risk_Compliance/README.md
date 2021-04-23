@@ -391,7 +391,7 @@ Before you start this section of the exercise, make sure you delete the namespac
 4. You can now deploy the policies from your forked repository to the Advanced Cluster Management.
 
 ```
-<hub> $ ./deploy.sh --url https://github.com/<your-username>/rhacm-workshop.git --path 04.Governance_Risk_Compliance/exercise/ --namespace rhacm-policies
+<hub> $ ./deploy.sh --url https://github.com/<your-username>/rhacm-workshop.git --branch master --path 04.Governance_Risk_Compliance/exercise/ --namespace rhacm-policies
 ```
 
 5. Make sure that the policies are deployed in the **Governance Risk and Compliance** tab in the Advanced Cluster Management for Kubernetes console.
