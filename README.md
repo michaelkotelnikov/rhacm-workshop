@@ -3,7 +3,7 @@
 This document concludes exercises and demonstrations for the Advanced Cluster Management workshop. The workshop is presented in - [https://docs.google.com/presentation/d/1jhsO7tSsFoNwYouF-iBnlw5kA7Nx0Hoi-4HK0fFP1YI/edit?usp=sharing](https://docs.google.com/presentation/d/1jhsO7tSsFoNwYouF-iBnlw5kA7Nx0Hoi-4HK0fFP1YI/edit?usp=sharing)
 
 Participants in the workshop must have -
-* Two running OpenShift cluster.
+* One running OpenShift cluster.
 * The `oc` CLI tool installed.
 * The `kubectl` CLI tool installed.
 * The `git` CLI tool installed.
