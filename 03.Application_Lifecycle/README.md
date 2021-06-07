@@ -1,6 +1,6 @@
 # Exercise 3 - Application Lifecycle
 
-In this exercise you will deploy a demo application onto the managed cluster using Red Hat Advanced Cluster Management for Kubernetes. You will manage the application versions and use cluster labels to configure placement mechanisms.
+In this exercise you will deploy a demo application onto the cluster using Red Hat Advanced Cluster Management for Kubernetes. You will manage the application versions and use cluster labels to configure placement mechanisms.
 
 In this exercise you will try to deploy an application that manages two versions -
 
@@ -127,7 +127,7 @@ After the resources are created. In the RHACM portal, navigate to **Application 
 
 Click on the route resource, and navigate to the URL - **https://&lt;route-url>/application.html**.
 
-Make sure that the application is running the **development version** on cluster-a. Login into cluster-a, and validate that the application runs there.
+Make sure that the application is running the **development version** on the cluster. Login into the cluster, and validate that the application runs there.
 
 ```
 <managed cluster> $ oc login -u admin -p <password> https://api.cluster.2222.sandbox.opentlc.com:6443
@@ -188,15 +188,15 @@ After creating the resources,  navigate to **Application Lifecycle** -> **webser
 
 ![application-dev](images/application-dev.png)
 
-In order to deploy the production application on **cluster-a** -
+In order to deploy the production application on **local-cluster** -
 
-*   navigate to **Cluster Lifecycle** -> **cluster-a** -> **Actions** -> **Edit labels**.
+*   navigate to **Cluster Lifecycle** -> **local-cluster** -> **Actions** -> **Edit labels**.
 *   Remove the **environment=dev** label.
 *   Add the **environment=production** label.
 
-Wait for about 2 minutes for the application to redeploy on **cluster-a**, and navigate to **Application Lifecycle** -> **webserver-app**.
+Wait for about 2 minutes for the application to redeploy on **local-cluster**, and navigate to **Application Lifecycle** -> **webserver-app**.
 
-Note that the application is now deployed at its “production” version on **cluster-a**.
+Note that the application is now deployed at its “production” version on **local-cluster**.
 
 ![application-prod](images/application-prod.png)
 
