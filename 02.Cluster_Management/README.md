@@ -47,10 +47,10 @@ In this exercise you will be using the Red Hat Advanced Cluster Management porta
 
 1. Using Red Hat Advanced Cluster Management, find out what is the cloud provider of the managed cluster.
 2. Using Red Hat Advanced Cluster Management, find out the number of nodes that make up the managed cluster. How many CPUs does each node have?
-3. Using Red Hat Advanced Cluster Management, check out whether all users can provision new projects on cluster-a (check if the **self-provisioners** ClusterRoleBinding has the system:authenticated:oauth group associated with it).
-4. Using Red Hat Advanced Cluster Management, check what **channel version** is associated with cluster-a (stable / candidate / fast) - (Search for **kind:ClusterVersion** CR).
+3. Using Red Hat Advanced Cluster Management, check out whether all users can provision new projects on local-cluster (check if the **self-provisioners** ClusterRoleBinding has the system:authenticated:oauth group associated with it).
+4. Using Red Hat Advanced Cluster Management, check what **channel version** is associated with local-cluster (stable / candidate / fast) - (Search for **kind:ClusterVersion** CR).
 5. Using Red Hat Advanced Cluster Management -
-*   Check the port number that the **alertmanager-main-0** pod listens on cluster-a (can be found using the pod logs and pod resource definition).
+*   Check the port number that the **alertmanager-main-0** pod listens on local-cluster (can be found using the pod logs and pod resource definition).
 *   Check the full path of the **alertmanager-main-0** pod configuration file (can be found using the pod logs and pod resource definition).
 
 
@@ -58,5 +58,5 @@ In this exercise you will be using the Red Hat Advanced Cluster Management porta
 
 **NOTE**: Do this exercise after you are finished with the **whole** workshop. The upgrading process may take up to an hour to complete.
 
-1. Change the **channel version** on the cluster-a from stable-**4.4** to stable-**4.5**.
+1. Change the **channel version** on the local-cluster from stable-**4.4** to stable-**4.5**.
 2. Upgrade the cluster using Red Hat Advanced Cluster Management.
