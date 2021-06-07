@@ -1,22 +1,22 @@
 # Exercise 2 - Managing an existing cluster using Advanced Cluster Management
 
-In this exercise you will import an existing cluster to Red Hat Advanced Cluster Management stack. You will attach labels to the cluster, visualize its resources and perform updates to the OpenShift Platform.
+In this exercise you manage the existing cluster on the Red Hat Advanced Cluster Management stack - `local-cluster`. You will attach labels to the cluster, visualize its resources and perform updates to the OpenShift Platform.
 
 
 ## 2.1 Import an existing cluster
 
-1. Import an existing cluster to Red Hat Advanced Cluster Management. Use the [workshop’s presentation](https://docs.google.com/presentation/d/1jhsO7tSsFoNwYouF-iBnlw5kA7Nx0Hoi-4HK0fFP1YI/edit?usp=sharing) as a guideline to the process -
-*   **Name**: cluster-a
-*   **Additional labels**: 
+1. Modify the attributes of the managed cluster in Red Hat Advanced Cluster Management. Use the [workshop’s presentation](https://docs.google.com/presentation/d/1jhsO7tSsFoNwYouF-iBnlw5kA7Nx0Hoi-4HK0fFP1YI/edit?usp=sharing) as a guideline to the process -
+*   **Name**: local-cluster
+*   **labels**: 
     * environment=dev
     * owner=&lt;your-name>
-2. Log into the managed cluster using the **oc** cli tool.
+2. Log into the cluster using the **oc** cli tool.
 
 ```
 <managed cluster> $ oc login -u admin -p <password> https://api.cluster.2222.sandbox.opentlc.com:6443
 ```
 
-3. Make sure that all of the agent pods are up and running on the managed cluster.
+3. Make sure that all of the agent pods are up and running on the cluster.
 
 ```
 <managed cluster> $ oc get pods -n open-cluster-management-agent
@@ -41,9 +41,6 @@ klusterlet-addon-search-7b697f899f-5vqwl               2/2 	Running   0      	44
 klusterlet-addon-workmgr-7f48869cd6-mqq8g               2/2 	Running   0      	44m
 ```
 
-4. The cluster should now be available.
-
-
 ## 2.2 Analyzing the managed cluster
 
 In this exercise you will be using the Red Hat Advanced Cluster Management portal to analyze the managed cluster’s resources.
@@ -57,7 +54,7 @@ In this exercise you will be using the Red Hat Advanced Cluster Management porta
 *   Check the full path of the **alertmanager-main-0** pod configuration file (can be found using the pod logs and pod resource definition).
 
 
-## 2.3 Upgrade cluster-a 
+## 2.3 Upgrade the cluster using Advanced Cluster Management
 
 **NOTE**: Do this exercise after you are finished with the **whole** workshop. The upgrading process may take up to an hour to complete.
 
