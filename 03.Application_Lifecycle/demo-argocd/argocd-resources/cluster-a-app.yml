@@ -5,7 +5,7 @@ metadata:
 spec:
   destination:
     name: cluster-a
-  project: mariadb
+  project: openshift-operators
   source:
     path: 03.Application_Lifecycle/demo-application/mariadb-resources
     repoURL: https://github.com/michaelkotelnikov/rhacm-workshop
