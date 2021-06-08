@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mycluster-cluster-config
+spec:
+  destination:
+    name: cluster-a
+  project: mariadb
+  source:
+    path: 03.Application_Lifecycle/demo-application/mariadb-resources
+    repoURL: https://github.com/michaelkotelnikov/rhacm-workshop
+    targetRevision: master
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
