@@ -19,7 +19,7 @@ spec:
       status: "True"
   clusterSelector:
     matchLabels:
-      local-cluster: true
+      local-cluster: "true"
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: Subscription
