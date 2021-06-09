@@ -1,0 +1,55 @@
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Channel
+metadata:
+  name: argocd-app
+  namespace: openshift-operators
+spec:
+  type: Git
+  pathname: https://github.com/michaelkotelnikov/rhacm-workshop.git
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: argocd-placement
+  namespace: openshift-operators
+spec:
+  clusterConditions:
+    - type: ManagedClusterConditionAvailable
+      status: "True"
+  clusterSelector:
+    matchLabels:
+      local-cluster: "true"
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription
+metadata:
+  name: argocd-app
+  namespace: openshift-operators
+  labels:
+    app: argocd-app
+  annotations:
+    apps.open-cluster-management.io/github-path: 03.Application_Lifecycle/demo-argocd/argocd-resources
+spec:
+  channel: openshift-operators/argocd-app
+  placement:
+    placementRef:
+      kind: PlacementRule
+      name: argocd-placement
+---
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  name: argocd-app
+  namespace: openshift-operators
+spec:
+  componentKinds:
+  - group: apps.open-cluster-management.io
+    kind: Subscription
+  descriptor: {}
+  selector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values:
+      - argocd-app
