@@ -6,7 +6,7 @@ metadata:
     app: mariadb
     type: database
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
