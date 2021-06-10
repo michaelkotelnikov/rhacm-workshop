@@ -99,7 +99,7 @@ spec:
       type: ManagedClusterConditionAvailable
   clusterSelector:
     matchExpressions:
-      - { key: environment, operator: In, values: ["dev"] }
+      - { key: environment, operator: In, values: ["production"] }
 EOF
 
 <hub> $ oc apply -f policy-gatekeeper-operator.yaml
@@ -231,7 +231,7 @@ spec:
       type: ManagedClusterConditionAvailable
   clusterSelector:
     matchExpressions:
-      - { key: environment, operator: In, values: ["dev"] }
+      - { key: environment, operator: In, values: ["production"] }
 EOF
 
 <hub> $ oc apply -f policy-gatekeeper-httpsonly.yaml
