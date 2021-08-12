@@ -88,3 +88,14 @@ metrics-collector-deployment-765946868-hmk5d      1/1     Running   0          2
 ```
 
 Now, that all pods are running, in RHACM's dashboard, navigate to **Cluster Lifecycle** -> **Grafana (top right side)**. Make sure that the dashboards are available and graphs are present.
+
+### 3.2 - Exploe the default Grafana dashboards
+
+This part focuses on the default Grafana dashboards that come with RHACM. Each dashboard has its own characteristics and provides valueable information to the system administrator in the organization. This section contains multiple tasks that require you to look for certain values in the default dashboards that come with `MCO`.
+
+- Find the maximum latency value for the `local-cluster` API server.
+- Find out how much % of `local-cluster`'s memory is utilized.
+- Find what is the size of the etcd database in `local-cluster`.
+- Find the namespace that consumes the most CPU in `local-cluster`.
+- Find what's the node in `local-cluster` that consumes the most % memory.
+- Find what's the `apiserver` (openshift-apiserver namespace) pod CPU utulization and quota.
