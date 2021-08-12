@@ -24,6 +24,8 @@ After running the command, a `minio` deployment will be available. The S3 endpoi
 
 To create an instance of `Multi Cluster Obervability`, apply the next object to the  `open-cluster-management-observability` namespace on the hub cluster.
 
+**NOTE** If you're not using an OpenShift cluster that's deployed on AWS, make sure to modify the StorageClass definition in the below YAML.
+
 ```
-<hub> $ 
+<hub> $ oc apply -f https://raw.githubusercontent.com/michaelkotelnikov/rhacm-workshop/single-cluster/03.Observability/exercise/multiclusterobservability.yaml -n open-cluster-management-observability
 ```
