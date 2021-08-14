@@ -208,7 +208,7 @@ Before you can create a custom dashboard, you need to spin up an instance of a "
 
 The dashboard you design in this part will present a graph that aggregates all available nodes in all clusters and show their available memory over a defined time period. In order to configure that dashboard, follow the next steps -
 
-- Log into the development instance
+- Log into the development instance.
 - Press on the large `+` on the left slidebar, select `Dashboard`. 
 - Press on `Add new panel` in order to create a custom graph.
 - Enter the next query in the `metrics` tab `node_memory_MemAvailable_bytes{cluster="local-cluster"}`.
