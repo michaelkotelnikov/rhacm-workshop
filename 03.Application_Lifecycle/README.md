@@ -4,8 +4,8 @@ In this exercise you will deploy a demo application onto the managed cluster usi
 
 In this exercise you will try to deploy an application that manages two versions -
 
-* Development - [https://github.com/michaelkotelnikov/rhacm-workshop/tree/dev/application-lifecycle/exercise-application/application-resources](https://github.com/michaelkotelnikov/rhacm-workshop/tree/dev/application-lifecycle/exercise-application/application-resources)
-* Production - [https://github.com/michaelkotelnikov/rhacm-workshop/tree/master/application-lifecycle/exercise-application/application-resources](https://github.com/michaelkotelnikov/rhacm-workshop/tree/master/application-lifecycle/exercise-application/application-resources)
+* Development - [https://github.com/michaelkotelnikov/rhacm-workshop/tree/dev/03.Application_Lifecycle/exercise-application/application-resources](https://github.com/michaelkotelnikov/rhacm-workshop/tree/dev/03.Application_Lifecycle/exercise-application/application-resources)
+* Production - [https://github.com/michaelkotelnikov/rhacm-workshop/tree/master/03.Application_Lifecycle/exercise-application/application-resources](https://github.com/michaelkotelnikov/rhacm-workshop/tree/master/03.Application_Lifecycle/exercise-application/application-resources)
 
 Both versions of the application are stored in the same Git repository, while the **production** version is stored in the **master** branch, and the **development** version is stored in the **dev** branch.
 
