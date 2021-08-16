@@ -3,7 +3,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: Channel
 metadata:
   name: argocd-app
-  namespace: openshift-operators
+  namespace: openshift-gitops
 spec:
   type: Git
   pathname: https://github.com/michaelkotelnikov/rhacm-workshop.git
@@ -12,7 +12,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: argocd-placement
-  namespace: openshift-operators
+  namespace: openshift-gitops
 spec:
   clusterConditions:
     - type: ManagedClusterConditionAvailable
@@ -25,7 +25,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: Subscription
 metadata:
   name: argocd-app
-  namespace: openshift-operators
+  namespace: openshift-gitops
   labels:
     app: argocd-app
   annotations:
@@ -41,7 +41,7 @@ apiVersion: app.k8s.io/v1beta1
 kind: Application
 metadata:
   name: argocd-app
-  namespace: openshift-operators
+  namespace: openshift-gitops
 spec:
   componentKinds:
   - group: apps.open-cluster-management.io
