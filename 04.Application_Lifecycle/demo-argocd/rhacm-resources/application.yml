@@ -31,7 +31,7 @@ metadata:
   annotations:
     apps.open-cluster-management.io/github-path: 03.Application_Lifecycle/demo-argocd/argocd-resources
 spec:
-  channel: openshift-operators/argocd-app
+  channel: openshift-gitops/argocd-app
   placement:
     placementRef:
       kind: PlacementRule
