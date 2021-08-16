@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: mycluster-cluster-config
+  name: mariadb-argocd
 spec:
   destination:
     name: local-cluster

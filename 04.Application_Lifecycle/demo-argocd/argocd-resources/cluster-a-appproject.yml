@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: local-cluster
+  name: demo-project-argocd
 spec:
   clusterResourceWhitelist:
   - group: '*'

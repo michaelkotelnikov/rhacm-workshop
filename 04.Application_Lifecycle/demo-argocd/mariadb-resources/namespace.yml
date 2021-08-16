@@ -1,4 +1,4 @@
 apiVersion: project.openshift.io/v1
-kind: Project
+kind: Namespace
 metadata:
   name: mariadb
