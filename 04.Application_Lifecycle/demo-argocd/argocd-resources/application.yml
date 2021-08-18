@@ -8,7 +8,7 @@ spec:
     name: local-cluster
   project: demo-project-argocd
   source:
-    path: 04.Application_Lifecycle/demo-argocd/mariadb-resources
+    path: 04.Application_Lifecycle/demo-argocd/mariadb-resources/local-cluster
     repoURL: https://github.com/michaelkotelnikov/rhacm-workshop
     targetRevision: single-cluster
   syncPolicy:
