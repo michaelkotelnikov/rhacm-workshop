@@ -398,4 +398,22 @@ Make sure that `local cluster` is imported into ArgoCD. In ArgoCD's web UI, on t
 
 ## Deploying an ApplicationSet using ArgoCD
 
-Now that you integrated ArgoCD with RHACM, let's deploy an ApplicationSet resource using ArgoCD.
+Now that you integrated ArgoCD with RHACM, let's deploy an ApplicationSet resource using ArgoCD. The applications you're going to create in this part are based on the same applications you have created in the begnining of the exercise - A simple web server application for a development environment and onther one for the production environment.
+
+The applications are based on one [helm](https://helm.sh/) chart. Each application in the set will be identified by its own unique `values.yaml` file. The applications are using the same baseline kubernetes resources at - [exercise-argocd/application-resources/templates](exercise-argocd/application-resources/templates), but they are using different values at - [exercise-argocd/application-resources/values](exercise-argocd/application-resources/values). Each instance of the application will use its own values file. The ApplicationSet resource will itterate over the directories in the [exercise-argocd/application-resources/values](exercise-argocd/application-resources/values) directory and create an instance of an application for each directory.
+
+To create the ApplicationSet resource run the next commands -
+
+```
+<hub> $ oc apply -f https://raw.githubusercontent.com/michaelkotelnikov/rhacm-workshop/single-cluster/04.Application_Lifecycle/exercise-argocd/argocd-resources/appproject.yaml
+
+<hub> $ oc apply -f https://raw.githubusercontent.com/michaelkotelnikov/rhacm-workshop/single-cluster/04.Application_Lifecycle/exercise-argocd/argocd-resources/applicationset.yaml
+```
+
+Note that two application instances have been created in the ArgoCD UI -
+
+![argocd-applications](images/argocd-applications.png)
+
+After viewing the applications and their resources in the ArgoCD dashboard, log into RHACM's web console, and nacigate to **Applications**. Note that RHACM identifies the deployed ApplicaitonSet and provides an entry for both applications -
+
+![argocd-rhacm-applications](images/argocd-rhacm-applications.png)
