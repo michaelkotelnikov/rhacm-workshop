@@ -5,6 +5,7 @@ metadata:
   labels:
     app: webserver
   name: webserver
+  namespace: {{ .Values.namespace }}
 spec:
   path: "/application.html"
   port:

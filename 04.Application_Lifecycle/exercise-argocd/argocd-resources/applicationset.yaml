@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: multicluster-mariadb
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/michaelkotelnikov/rhacm-workshop.git
+      revision: single-cluster
+      directories:
+      - path: 04.Application_Lifecycle/exercise-argocd/application-resources/values/*
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: demo-project-argocd
+      source:
+        repoURL: https://github.com/michaelkotelnikov/rhacm-workshop.git
+        targetRevision: single-cluster
+        path: 04.Application_Lifecycle/exercise-argocd/application-resources/
+        helm:
+          values: 'values/{{path.basename}}'
+      destination:
+        name: 'local-cluster'
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true

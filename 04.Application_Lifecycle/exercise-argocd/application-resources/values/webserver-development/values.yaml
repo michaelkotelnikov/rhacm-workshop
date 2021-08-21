@@ -1,2 +1,3 @@
 application:
   content: "Development Application"
+namespace: webserver-dev

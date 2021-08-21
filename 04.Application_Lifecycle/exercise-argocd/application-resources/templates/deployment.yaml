@@ -4,6 +4,7 @@ metadata:
   name: webserver
   labels:
     app: webserver
+  namespace: {{ .Values.namespace }}
 spec:
   selector:
     matchLabels:
