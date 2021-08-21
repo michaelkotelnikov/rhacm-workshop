@@ -1,3 +1,3 @@
 application:
-  content: "Development Application"
+  content: "<h1>Development Application</h1>"
 namespace: webserver-dev
