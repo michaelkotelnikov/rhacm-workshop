@@ -212,3 +212,190 @@ Click on the application’s route resource, and navigate to **https://&lt;route
 ```
 <hub> $ oc apply -f https://raw.githubusercontent.com/michaelkotelnikov/rhacm-workshop/master/03.Application_Lifecycle/exercise-application/rhacm-resources/application.yaml
 ```
+
+# ArgoCD Integration
+
+This section discusses the process of deploying an application using ArgoCD in an Advanced Cluster Management for Kubernetes environment. The section will follow the process of ArgoCD installation, integration with RHACM and application deployment.
+
+Before you begin, make sure to delete all of the resources you created in the previous exercise -
+
+```
+<hub> $ oc delete project webserver-acm
+```
+
+## ArgoCD Installation
+
+As described in the workshop. An ArgoCD / OpenShift GitOps instance has to be installed in order to begin the integration with RHACM. Install the `openshift-gitops` operator by applying the next resource to the hub cluster -
+
+```
+<hub> $ cat >> openshift-gitops-operator.yaml << EOF
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: openshift-gitops-operator
+  namespace: openshift-operators
+spec:
+  channel: stable
+  installPlanApproval: Automatic
+  name: openshift-gitops-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+EOF
+
+<hub> $ oc apply -f openshift-gitops-operator.yaml
+```
+
+After installing the operator on the hub cluster. Create the ArgoCD CustomResource. The ArgoCD CR spins an instance of ArgoCD using the `openshift-gitops` operator.
+
+```
+<hub> $ cat >> argocd.yaml << EOF
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ArgoCD
+metadata:
+  finalizers:
+    - argoproj.io/finalizer
+  name: openshift-gitops
+  namespace: openshift-gitops
+spec:
+  server:
+    autoscale:
+      enabled: false
+    grpc:
+      ingress:
+        enabled: false
+    ingress:
+      enabled: false
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 125m
+        memory: 128Mi
+    route:
+      enabled: true
+    service:
+      type: ''
+  grafana:
+    enabled: false
+EOF
+
+<hub> $ oc apply -f argocd.yaml
+```
+
+Make sure that the ArgoCD instance is running by navigating to ArgoCD's web UI. The URL can be found be running the next command -
+
+```
+<hub> $ oc get route -n openshift-gitops
+NAME                      HOST/PORT                                  PATH   SERVICES                  PORT    TERMINATION            WILDCARD
+...
+openshift-gitops-server   openshift-gitops-server-openshift-gitops.<FQDN>   openshift-gitops-server   https   passthrough/Redirect   None
+```
+
+Log into the ArgoCD instance with the `admin` username and its password. The password to the `admin` user can be found be running the next command -
+
+```
+<hub> $ oc extract secret/openshift-gitops-cluster --to=- -n openshift-gitops
+# admin.password
+<PASSWORD>
+```
+
+Now that you have a running instance of ArgoCD, let's integrate it with RHACM!
+
+## Preparing RHACM for ArgoCD Integration
+
+In this part you will create the relevant resources to import `local-cluster` into ArgoCD's managed clusters.
+
+Create the next ManagedClusterSet resource. The ManagedClusterSet resource will include `local-cluster` in it, and will be associated with the `openshift-gitops` namespace.
+
+```
+<hub> $ cat >> managedclusterset.yaml << EOF
+---
+apiVersion: cluster.open-cluster-management.io/v1alpha1
+kind: ManagedClusterSet
+metadata:
+  name: all-clusters
+EOF
+
+<hub> $ oc apply -f managedclusterset.yaml
+```
+
+Now, import `local-cluster` into the ManagedClusterSet reosurce. Importation will be done by adding the `cluster.open-cluster-management.io/clusterset: all-clusters` label to the `local-cluster` ManagedCluster resource -
+
+```
+<hub> $ oc edit managedcluster local-cluster
+...
+labels:
+...
+    cloud: Amazon
+    cluster.open-cluster-management.io/clusterset: all-clusters
+...
+```
+
+Create the ManagedClusterSetBinding resource to bind the `local-cluster` ManagedClusterSet resource to the `openshift-gitops` resource. Creating the resource will allow ArgoCD to access `local-cluster` information and import it into its management stack.
+
+```
+<hub> $ cat >> managedclustersetbinding.yaml << EOF
+---
+apiVersion: cluster.open-cluster-management.io/v1alpha1
+kind: ManagedClusterSetBinding
+metadata:
+  name: all-clusters
+  namespace: openshift-gitops
+spec:
+  clusterSet: all-clusters
+EOF
+
+<hub> $ oc apply -f managedclustersetbinding.yaml
+```
+
+Create the Placement resource and bind it to `all-clusters` ManagedClusterSet. Note that we will not be using any special filters in this exercise.
+
+```
+<hub> $ cat >> placement.yaml << EOF
+---
+apiVersion: cluster.open-cluster-management.io/v1alpha1
+kind: Placement
+metadata:
+  name: all-clusters
+  namespace: openshift-gitops
+spec:
+  clusterSets:
+    - all-clusters
+EOF
+
+<hub> $ oc apply -f placement.yaml
+```
+
+Create the GitOpsServer resource to indicate the location of ArgoCD and the placement resource -
+
+```
+<hub> $ cat >> gitopsserver.yaml << EOF
+---
+apiVersion: apps.open-cluster-management.io/v1alpha1
+kind: GitOpsCluster
+metadata:
+  name: gitops-cluster
+  namespace: openshift-gitops
+spec:
+  argoServer:
+    cluster: local-cluster
+    argoNamespace: openshift-gitops
+  placementRef:
+    kind: Placement
+    apiVersion: cluster.open-cluster-management.io/v1alpha1
+    name: all-clusters
+EOF
+
+<hub> $ oc apply -f gitopsserver.yaml
+```
+
+Make sure that `local cluster` is imported into ArgoCD. In ArgoCD's web UI, on the left menu bar, navigate to **Manage your repositories, projects, settings** -> **Clusters**. You should see `local-cluster` in the cluster list.
+
+![argocd-cluster](images/argocd-cluster.png)
+
+## Deploying an ApplicationSet using ArgoCD
+
+Now that you integrated ArgoCD with RHACM, let's deploy an ApplicationSet resource using ArgoCD.

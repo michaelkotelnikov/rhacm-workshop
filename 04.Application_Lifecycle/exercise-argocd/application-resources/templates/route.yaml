@@ -1,0 +1,18 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+  labels:
+    app: webserver
+  name: webserver
+spec:
+  path: "/application.html"
+  port:
+    targetPort: 8080-tcp
+  tls:
+    termination: edge
+  to:
+    kind: Service
+    name: webserver
+    weight: 100
+  wildcardPolicy: None
