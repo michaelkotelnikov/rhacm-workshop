@@ -19,7 +19,7 @@ spec:
         targetRevision: single-cluster
         path: 04.Application_Lifecycle/exercise-argocd/application-resources/
         helm:
-          values: 'values/{{path.basename}}'
+          values: 'values/{{path.basename}}/values.yaml'
       destination:
         name: 'local-cluster'
       syncPolicy:
