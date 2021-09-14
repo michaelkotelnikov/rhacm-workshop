@@ -5,4 +5,4 @@ metadata:
   name: prejob
 spec:
   tower_auth_secret: ansible-tower
-  job_template_name: pre-log
+  job_template_name: Logger

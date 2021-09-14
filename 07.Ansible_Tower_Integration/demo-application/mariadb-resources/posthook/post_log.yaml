@@ -5,4 +5,4 @@ metadata:
   name: postjob
 spec:
   tower_auth_secret: ansible-tower
-  job_template_name: post-log
+  job_template_name: Logger
