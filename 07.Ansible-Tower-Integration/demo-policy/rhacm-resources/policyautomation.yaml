@@ -6,7 +6,6 @@ metadata:
 spec:
   automationDef:
     extra_vars:
-      your_var: your_value
       trigger_name: dangerous-namespace-policy
       hook_type: policyautomation
     name: Logger
