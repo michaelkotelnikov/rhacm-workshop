@@ -9,3 +9,6 @@
     path: "{{ log_file }}"
     state: touch
   when: log_state.stat.exists == false
+
+- debug:
+    msg: "{{ date }}"
