@@ -13,4 +13,4 @@
 - name: Added log message to file
   lineinfile:
     path: "{{ log_file }}"
-    line: "{{ date }} Ansible Job was triggered by application {{ application_name }} as {{ hook_type }} hook in clusters {{ target_clusters }}."
+    line: "{{ date }} Ansible Job was triggered by {{ trigger_name }} as {{ hook_type }} in clusters {{ target_clusters }}."

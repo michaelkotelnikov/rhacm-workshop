@@ -7,5 +7,5 @@ spec:
   tower_auth_secret: ansible-tower
   job_template_name: Logger
   extra_vars:
-    application_name: mariadb
+    trigger_name: mariadb
     hook_type: pre
