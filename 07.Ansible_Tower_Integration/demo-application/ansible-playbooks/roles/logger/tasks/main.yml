@@ -3,9 +3,11 @@
   stat:
     path: "{{ log_file }}"
   register: log_state
+  become: true
 
 - name: Create the log file
   file:
     path: "{{ log_file }}"
     state: touch
   when: log_state.stat.exists == false
+  become: true
