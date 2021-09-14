@@ -1,1 +1,1 @@
-log_file: "~/test"
+log_file: "/var/log/rhacm.log"
