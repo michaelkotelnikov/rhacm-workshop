@@ -11,4 +11,4 @@
   when: log_state.stat.exists == false
 
 - debug:
-    msg: "{{ date }}"
+    msg: "{{ date }} Ansible Job was triggered by application - {{ application_name }} as a {{ hook_type }} hook in clusters {{ target_clusters }}."

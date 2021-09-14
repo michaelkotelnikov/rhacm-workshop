@@ -1,2 +1,5 @@
 log_file: "/var/log/rhacm.log"
 date: "{{ lookup('pipe', 'date') }}"
+application_name: "null"
+hook_type: "undefined"
+target_clusters: "none"
