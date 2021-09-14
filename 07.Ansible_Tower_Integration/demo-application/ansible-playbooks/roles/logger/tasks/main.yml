@@ -1,4 +1,10 @@
 ---
-- name: Testing
-  debug:
-    msg: "Test"
+- name: Validate the log file
+  stat:
+    path: "{{ log_file }}"
+  register: log_file
+
+- name: Create the log file
+  file:
+    path: "{{ log_file }}"
+    state: '{{ "file" if  log_file.stat.exists else "touch" }}'
