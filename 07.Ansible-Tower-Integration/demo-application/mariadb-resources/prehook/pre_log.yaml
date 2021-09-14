@@ -8,4 +8,4 @@ spec:
   job_template_name: Logger
   extra_vars:
     trigger_name: mariadb
-    hook_type: pre
+    hook_type: prehook
