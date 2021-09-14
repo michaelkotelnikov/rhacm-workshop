@@ -34,7 +34,7 @@ metadata:
   labels:
     app: mariadb-app
   annotations:
-    apps.open-cluster-management.io/github-path: 07.Ansible_Tower_Integration/demo-application/mariadb-resources
+    apps.open-cluster-management.io/github-path: 07Ansible_Tower_Integration/demo-application/mariadb-resources
     apps.open-cluster-management.io/git-branch: single-cluster
 spec:
   channel: mariadb/mariadb-app
