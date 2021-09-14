@@ -1,0 +1,8 @@
+---
+apiVersion: tower.ansible.com/v1alpha1
+kind: AnsibleJob
+metadata:
+  name: prejob
+spec:
+  tower_auth_secret: ansible-tower
+  job_template_name: pre-log
