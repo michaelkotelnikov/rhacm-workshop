@@ -2,9 +2,10 @@
 - name: Validate the log file
   stat:
     path: "{{ log_file }}"
-  register: log_exists
+  register: log_state
 
 - name: Create the log file
   file:
     path: "{{ log_file }}"
-    state: '{{ "file" if  log_exists.stat.exists else "touch" }}'
+    state: touch
+  when: log_state.stat.exists == false
