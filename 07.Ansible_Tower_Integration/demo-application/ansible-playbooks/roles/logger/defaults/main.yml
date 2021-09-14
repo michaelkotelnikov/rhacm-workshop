@@ -1,1 +1,1 @@
-log_file: "/opt/rhacm.log"
+log_file: "/tmp/rhacm.log"
