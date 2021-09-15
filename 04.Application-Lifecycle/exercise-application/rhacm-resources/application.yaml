@@ -47,7 +47,7 @@ metadata:
   labels:
     app: webserver-app
   annotations:
-    apps.open-cluster-management.io/github-path: 03.Application_Lifecycle/exercise-application/application-resources
+    apps.open-cluster-management.io/github-path: 04.Application-Lifecycle/exercise-application/application-resources
 spec:
   channel: webserver-acm/webserver-app
   placement:
@@ -63,7 +63,7 @@ metadata:
   labels:
     app: webserver-app
   annotations:
-    apps.open-cluster-management.io/github-path: 03.Application_Lifecycle/exercise-application/application-resources
+    apps.open-cluster-management.io/github-path: 04.Application-Lifecycle/exercise-application/application-resources
     apps.open-cluster-management.io/git-branch: dev
 spec:
   channel: webserver-acm/webserver-app
