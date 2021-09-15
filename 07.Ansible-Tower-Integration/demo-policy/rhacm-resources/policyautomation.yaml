@@ -1,0 +1,15 @@
+apiVersion: policy.open-cluster-management.io/v1beta1
+kind: PolicyAutomation
+metadata:
+  name: dangerous-namespace-policy-automation
+  namespace: rhacm-policies
+spec:
+  automationDef:
+    extra_vars:
+      trigger_name: dangerous-namespace-policy
+      hook_type: policyautomation
+    name: Logger
+    secret: grc-ansible-tower
+    type: AnsibleJob
+  mode: once
+  policyRef: policy-remove-dangerous-namespace

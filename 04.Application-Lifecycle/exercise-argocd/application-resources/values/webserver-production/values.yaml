@@ -1,0 +1,3 @@
+application:
+  content: "<h1>Production Application</h1>"
+namespace: webserver-prod

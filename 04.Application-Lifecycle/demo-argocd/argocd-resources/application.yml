@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mariadb-argocd
+  namespace: openshift-gitops
+spec:
+  destination:
+    name: local-cluster
+  project: demo-project-argocd
+  source:
+    path: 04.Application_Lifecycle/demo-argocd/mariadb-resources/local-cluster
+    repoURL: https://github.com/michaelkotelnikov/rhacm-workshop
+    targetRevision: master
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true

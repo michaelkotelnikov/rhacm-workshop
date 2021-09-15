@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver
+  labels:
+    app: webserver
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: webserver
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: webserver
+    spec:
+      containers:
+        - name: apache
+          image: quay.io/bitnami/apache:2.4.46
+          ports:
+            - containerPort: 8080
+              name: webserver
+          volumeMounts:
+            - mountPath: /app/application.html
+              name: application-prod
+              subPath: application.html
+      volumes:
+        - configMap:
+            defaultMode: 420
+            items:
+            - key: application.html
+              path: application.html
+            name: application-prod
+          name: application-prod
