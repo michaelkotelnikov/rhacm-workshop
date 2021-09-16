@@ -8,7 +8,7 @@ spec:
       repoURL: https://github.com/michaelkotelnikov/rhacm-workshop.git
       revision: master
       directories:
-      - path: 04.Application_Lifecycle/demo-argocd/mariadb-resources/*
+      - path: 04.Application-Lifecycle/demo-argocd/mariadb-resources/*
   template:
     metadata:
       name: '{{path.basename}}-mariadb'
