@@ -1,16 +1,16 @@
 ---
 - name: Validate the log file
   stat:
-    path: "{{ log_file }}"
+    path: "{{ log_file_path }}/{{ log_file_name }}"
   register: log_state
 
 - name: Create the log file
   file:
-    path: "{{ log_file }}"
+    path: "{{ log_file_path }}/{{ log_file_name }}"
     state: touch
   when: log_state.stat.exists == false
 
 - name: Added log message to file
   lineinfile:
-    path: "{{ log_file }}"
+    path: "{{ log_file_path }}/{{ log_file_name }}"
     line: "{{ date }} Ansible Job was triggered by {{ trigger_name }} as {{ hook_type }} in clusters {{ target_clusters }}."
