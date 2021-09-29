@@ -1,4 +1,4 @@
-# Exercise 3 - Application Lifecycle
+# Exercise 4 - Application Lifecycle
 
 In this exercise you will deploy a demo application onto the cluster using Red Hat Advanced Cluster Management for Kubernetes. You will manage the application versions and use cluster labels to configure placement mechanisms.
 

@@ -1,4 +1,4 @@
-# Exercise 4 - Governance Risk and Compliance
+# Exercise 5 - Governance Risk and Compliance
 
 In this exercise you will go through the Compliance features that come with Red Hat Advanced Cluster Management for Kubernetes. You will apply a number of policies to the cluster in order to comply with global security and management standards.
 
