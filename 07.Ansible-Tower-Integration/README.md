@@ -13,7 +13,7 @@ The instructor will provide you with -
 In this section you will create the basic integration between RHACM and Ansible Tower. The integration is based on `Ansible Automation Platform Resource Operator`. Make sure to install the operator before you begin the next exercises. Installing the operator can be done by running the next commands on the hub cluster -
 
 ```
-<hub> $ oc new-project ansible-resource-operator
+<hub> $ oc create namespace ansible-resource-operator
 
 <hub> $ cat >> ansible-operator.yaml << EOF
 ---
@@ -45,3 +45,24 @@ Both Ansible Jobs will initiate the same Job Template on Ansible Tower called _L
 ### Setting up Authentication
 
 In order to allow RHACM to access Ansible Tower you must set up a Namespace scoped secret for RHACM to use. The secret will contain the Ansible Tower URL and Access Token.
+
+Before creating the secret itself, make sure that a namespace that will populate the secret exists -
+
+```
+<hub> $ oc create namespace mariadb
+```
+
+To create the secret, navigate to **Credentials** -> **Red Hat Ansible Automation Platform** in the RHACM UI and fill the next fields -
+
+- Credentials name: **ansible-tower**
+- Namespace: **mariadb**
+
+Press **Next**.
+
+At the next screen, specify the **Ansible Tower host** and **Ansible Tower token** provided by the instructor.
+
+Press **Next**. Review the information, and press on **Add**.
+
+### Setting up the Ansible Job
+
+Before you continue, create a fork of the next GitHub repository - [https://github.com/michaelkotelnikov/rhacm-workshop](https://github.com/michaelkotelnikov/rhacm-workshop). As a result, you will have your own version of the repository - [https://github.com/&lt;your-username>/rhacm-workshop](https://github.com/michaelkotelnikov/rhacm-workshop).

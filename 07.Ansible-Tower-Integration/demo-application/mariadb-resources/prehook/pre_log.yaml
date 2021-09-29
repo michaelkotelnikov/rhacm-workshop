@@ -9,3 +9,4 @@ spec:
   extra_vars:
     trigger_name: mariadb
     hook_type: prehook
+    log_file_name: rhacm.log
