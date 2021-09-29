@@ -166,6 +166,6 @@ Events:               <none>
 
 More information can be found in the Ansible Tower UI. Log into the Ansible Tower UI using the URL and credentials provided by the instructor.
 
-At the main dashboard take a look at the **Recent Job Runs**. Press on the `Logger` Job Run that matches your timestamp.
+At the main dashboard, take a look at the **Recent Job Runs**. Press on the `Logger` Job Run that matches your timestamp.
 
 ![tower-result](images/tower-result.png)
