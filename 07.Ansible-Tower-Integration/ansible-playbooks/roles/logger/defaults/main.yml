@@ -1,5 +1,5 @@
 log_file_name: "rhacm.log"
-log_file_path: "/var/www/html"
+log_file_path: "/var/www/html/logs"
 date: "{{ lookup('pipe', 'date') }}"
 trigger_name: "null"
 hook_type: "undefined"

@@ -1,4 +1,9 @@
 ---
+- name: Create log file directory
+  file:
+    path: "{{ log_file_path }}"
+    state: directory
+
 - name: Validate the log file
   stat:
     path: "{{ log_file_path }}/{{ log_file_name }}"
