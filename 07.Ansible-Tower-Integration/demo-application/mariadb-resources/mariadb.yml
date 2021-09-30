@@ -9,7 +9,7 @@ spec:
   selector:
     matchLabels:
       app: mariadb
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -28,3 +28,10 @@ spec:
                 secretKeyRef:
                   name: mariadb
                   key: MYSQL_ROOT_PASSWORD
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
