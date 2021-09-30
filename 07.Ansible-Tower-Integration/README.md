@@ -175,3 +175,4 @@ More information can be found in the Ansible Tower UI. Log into the Ansible Towe
 At the main dashboard, take a look at the **Recent Job Runs** tab. Press on the `Logger` Job Run that matches your timestamp.
 
 ![tower-result](images/tower-result.png)
+
