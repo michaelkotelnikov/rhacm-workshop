@@ -1,6 +1,6 @@
 # Exercise 7 - Ansible Tower Integration
 
-In this exercise you will go through Ansible Tower integration with Red Hat Advanced Cluster Management for Kubernetes. You will associate AnsibleJob hooks for applications and integrate AnsibleJobs with policy violations. Ansible Tower has already been configured for your use by the instructor, you will only configure Red Hat Advanced Cluster Management for Kubernetes.
+In this exercise you will go through Ansible Tower integration with Red Hat Advanced Cluster Management for Kubernetes. You will associate AnsibleJob hooks to applications and integrate AnsibleJobs with policy violations. Ansible Tower has already been configured for your use by the instructor. You will only configure Red Hat Advanced Cluster Management for Kubernetes.
 
 The instructor will provide you with -
 
@@ -10,7 +10,9 @@ The instructor will provide you with -
 
 ## Before You Begin
 
-In this section you will create the basic integration between RHACM and Ansible Tower. The integration is based on `Ansible Automation Platform Resource Operator`. Make sure to install the operator before you begin the next exercises. Installing the operator can be done by running the next commands on the hub cluster -
+In this section you will create the basic integration between RHACM and Ansible Tower. The integration is based on `Ansible Automation Platform Resource Operator`. Make sure to install the operator before you begin the next exercises.
+
+Installing the operator can be done by running the next commands on the hub cluster -
 
 ```
 <hub> $ oc create namespace ansible-resource-operator
@@ -38,15 +40,19 @@ The operator will now begin the installation process.
 
 ## Ansible Tower Application Integration
 
-In this section, you will configure Ansible Tower Jobs to run as your RHACM Application deploys. The first job will run as a _prehook_ while the second job will run as a _posthook_.
+In this section, you will configure Ansible Tower Jobs to run as your RHACM Application deploys. The first job will run as a _prehook_ while the second job will run as a _posthook_. The _prehook_ runs before the application resources start the deployment process while the _posthook_ job runs as soon as the resources are deployed.
 
-Both Ansible Jobs will initiate the same Job Template on Ansible Tower called _Logger_. The _Logger_ Job Template logs each running instance of an Ansible Job to a file on the Ansible Tower server. Afterwards, the _Logger_ Job Template will expose the log files on a local web server on Ansible Tower. The participants can view all log files on the Ansible Tower server by navigating to the URL provided by the instructor in **port 80**.
+Both Ansible Job hooks initiate the same Job Template on Ansible Tower called _Logger_. The _Logger_ Job Template creates a log in a dedicated file for each initiation of the Job Template. Afterwards, the _Logger_ Job Template exposes the log file on a local web server on Ansible Tower.
+
+The participants can view all log files on the Ansible Tower server by navigating to the URL provided by the instructor in **port 80**.
+
+The _Logger_ Ansible Role can be found at [logger role](ansible-playbooks/roles/logger) directory.
 
 ### Setting up Authentication
 
-In order to allow RHACM to access Ansible Tower you must set up a Namespace scoped secret for RHACM to use. The secret will contain the Ansible Tower URL and Access Token.
+In order to allow RHACM to access Ansible Tower you must set up a Namespace scoped secret for RHACM to use. RHACM uses the secret to authenticate against the Ansible Tower instance. The secret contains the Ansible Tower URL and Access Token.
 
-Before creating the secret itself, make sure that a namespace that will populate the secret exists -
+Before creating the secret itself, make sure the namespace that populates the secret exists by running the next command -
 
 ```
 <hub> $ oc create namespace mariadb
