@@ -176,3 +176,28 @@ At the main dashboard, take a look at the **Recent Job Runs** tab. Press on the 
 
 ![tower-result](images/tower-result.png)
 
+## Updating an Application
+
+Now that you have seen how Ansible Tower integrates with RHACM Applications, let's add another resource to the application. Adding a resource to the application demonstrates how AnsibleJobs are affected by changes in the application structure.
+
+In **your fork** of this repository, add a file called `service.yaml` under the [mariadb-resources](./mariadb-resources) directory. Paste the next resource to the `service.yaml` file. Make sure to commit the changes to GitHub.
+
+```
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: mariadb
+  name: mariadb
+  namespace: mariadb
+spec:
+  ports:
+  - name: 3306-tcp
+    port: 3306
+    protocol: TCP
+    targetPort: 3306
+  selector:
+    app: mariadb
+  sessionAffinity: None
+  type: ClusterIP
+```
