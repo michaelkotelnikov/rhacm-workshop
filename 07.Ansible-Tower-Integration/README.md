@@ -201,3 +201,26 @@ spec:
   sessionAffinity: None
   type: ClusterIP
 ```
+
+Note that after applying the resource, more AnsibleJob resources have been created in the `mariadb` namespace.
+
+```
+<hub> $ oc get ansiblejob
+
+NAME               AGE
+postjob-1-d53c95   3m18s
+postjob-1-e18776   28m
+prejob-1-d53c95    3m59s
+prejob-1-e18776    28m
+```
+
+The first AnsibleJob ran before applying the new Service resource, while the second one ran after applying it.
+
+If you take a look at the log file created by Ansible Tower at `http://<ansible-tower-url>/logs/<your-name>.log` you'll notice the **new** logs that the Logger Job Template has created. Note the timestamp of the latest logs in the file.
+
+```
+Wed Sep 29 16:20:27 UTC 2021 Ansible Job was triggered by mariadb as prehook in clusters ['local-cluster'].
+Wed Sep 29 16:21:19 UTC 2021 Ansible Job was triggered by mariadb as posthook in clusters ['local-cluster'].
+Wed Sep 29 17:20:57 UTC 2021 Ansible Job was triggered by mariadb as prehook in clusters ['local-cluster'].
+Wed Sep 29 17:21:49 UTC 2021 Ansible Job was triggered by mariadb as posthook in clusters ['local-cluster'].
+```
