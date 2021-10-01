@@ -1,0 +1,10 @@
+---
+- name: Validate the state of the wanted Namespace
+  community.kubernetes.k8s:
+    name: "{{ k8s_namespace_name }}"
+    api_version: v1
+    kind: Namespace
+    state: "{{ k8s_namespace_state }}"
+    username: "{{ k8s_username }}"
+    password: "{{ k8s_password }}"
+    host: "{{ k8s_api_url }}"

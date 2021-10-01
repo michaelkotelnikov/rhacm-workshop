@@ -224,3 +224,7 @@ Wed Sep 29 16:21:19 UTC 2021 Ansible Job was triggered by mariadb as posthook in
 Wed Sep 29 17:20:57 UTC 2021 Ansible Job was triggered by mariadb as prehook in clusters ['local-cluster'].
 Wed Sep 29 17:21:49 UTC 2021 Ansible Job was triggered by mariadb as posthook in clusters ['local-cluster'].
 ```
+
+## Ansible Tower Governance Integration
+
+In this section, you will configure Ansible Tower Jobs to run as a violation is initiated in one of your policies.
