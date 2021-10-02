@@ -176,7 +176,7 @@ At the main dashboard, take a look at the **Recent Job Runs** tab. Press on the 
 
 ![tower-result](images/tower-result.png)
 
-## Updating an Application
+### Updating an Application
 
 Now that you have seen how Ansible Tower integrates with RHACM Applications, let's add another resource to the application. Adding a resource to the application demonstrates how AnsibleJobs are affected by changes in the application structure.
 
@@ -228,3 +228,91 @@ Wed Sep 29 17:21:49 UTC 2021 Ansible Job was triggered by mariadb as posthook in
 ## Ansible Tower Governance Integration
 
 In this section, you will configure Ansible Tower Jobs to run as a violation is initiated in one of your policies.
+
+### Setting up Authentication
+
+In order to allow RHACM to access Ansible Tower you must set up a **Namespace scoped** secret for RHACM to use. A secret must be created for each namespace that interacts with Ansible Tower. Therefore, you must create the secret in the namespace that containts the policies as well.
+
+Before creating the secret itself, make sure the namespace that populates the secret exists by running the next command -
+
+```
+<hub> $ oc create namespace rhacm-policies
+```
+
+To create the secret, navigate to **Credentials** -> **Red Hat Ansible Automation Platform** in the RHACM UI and fill the next fields -
+
+- Credentials name: **ansible-tower**
+- Namespace: **rhacm-policies**
+
+Press **Next**.
+
+At the next screen, specify the **Ansible Tower host** and **Ansible Tower token** provided by the instructor.
+
+Press **Next**. Review the information, and press on **Add**.
+
+### Policy Automation - #1 - Delete Namespace if violation initiates
+
+In this example you will a policy that monitors whether a _forbidden namespace_ exists. If the namespace exists a violation will be initiated. Once the violation is initiated an Ansible Job Template will be triggered and remediate the violation using an Ansible role. A role has already been configured for this scenario at - [ansible-playbooks/roles/k8s-namespace](ansible-playbooks/roles/k8s-namespace).
+
+#### Configuring the Policy
+
+Create a Policy object based on what you have learned in the previous exercises. The Policy will initiate an alert if a namespace with the name `forbidden-namespace` is present in the cluster. Create the policy object in the `rhacm-policies` namespace. Make sure that the policy remediation action is set the _inform_. Policy examples can be found in the previous chapters of this training - (05.Governance-Risk-Compliance)[../05.Governance-Risk-Compliance].
+
+After creating the policy, make sure that the policy works as expected. Create a namespace with the name `forbidden-namespace`, on `local-cluster`.
+
+```
+<hub> $ oc create namespace forbidden-namespace
+```
+
+ Make sure that a violation is initiated.
+
+ ![violation](images/forbidden-namespace-violation.png)
+
+ #### Configuring PolicyAutomation
+
+ Now that a policy is configured, create a PolicyAutomation object that will initiate an Ansible Jon that will remediate the violation. Copy the next PolicyAutomation object definition to your local workstation.
+
+ ```
+apiVersion: policy.open-cluster-management.io/v1beta1
+kind: PolicyAutomation
+metadata:
+  name: namespace-policy-automation
+  namespace: rhacm-policies
+spec:
+  automationDef:
+    extra_vars:
+      k8s_api_url: <K8S API server URL>
+      k8s_password: <K8S password>
+      k8s_username: <K8S username>
+    name: K8S-Namespace
+    secret: ansible-tower
+    type: AnsibleJob
+  mode: once
+  policyRef: <policy-name>
+ ```
+
+ Modify the PolicyAutomation object with parameters relevant to your cluster.
+
+ - k8s_api_url refers to the API URL of your OpenShift / K8S cluster. e.g - 'https://api.cluster.sandbox.opentlc.com:6443'
+ - k8s_password refers to the password you're going to use to authenticate to the OpenShift / K8S cluster.
+ - k8s_username refers to the username you're going to use to authenticate to the OpenShift / K8S cluster.
+ - policyRef refers to the Policy object that the PolicyAutomation is associated with.
+
+ After modifying the parametes, create the PolicyAutomation object on the hub cluster in the `rhacm-policies` namespace.
+
+ Note that as soon as you create the PolicyAutomatiob object, an AnsibleJob object is created in the `rhacm-policies` namespace. The AnsibleJob marks that the Ansible Job Template on Ansible Tower has been initiated.
+
+ ```
+<hub> $ oc get ansiblejob -n rhacm-policies
+
+NAME                                               AGE
+namespace-policy-automation-once-2bgv8             46s
+ ```
+
+ If you log into the Ansible Tower web interface, you'll notice that the K8S-Namespace Job Template has been initiated. The Job indicates that the forbidden namespace has been removed.
+
+ ![k8s-namespace-tower](images/k8s-namespace-tower.png)
+
+ Now, take a look at the Governance dashboard in RHACM. Note that the violation is no longer present in the policy you have created. The forbidden namespace is no longer present.
+
+ ![forbidden-namespace-no-violation](images/forbidden-namespace-no-violation.png)
