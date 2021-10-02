@@ -12,7 +12,7 @@ L=Kamyanske
 O=DMK
 OU=OASUP
 emailAddress=webmaster@localhost
-CN = api.cluster-6f0a.6f0a.sandbox664.opentlc.com
+CN = api.{{ cluster_domain }}
 
 [ req_ext ]
 basicConstraints = CA:FALSE
@@ -20,5 +20,5 @@ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 subjectAltName = @alt_names
 
 [ alt_names ]
-DNS.0 = api.cluster-6f0a.6f0a.sandbox664.opentlc.com
-DNS.1 = *.apps.cluster-6f0a.6f0a.sandbox664.opentlc.com
+DNS.0 = api.{{ cluster_domain }}
+DNS.1 = *.apps.{{ cluster_domain }}

@@ -5,3 +5,25 @@
 
 - name: Create CA private key
   shell: "openssl genrsa -out {{ certificate_path }}/rootCA.key 2048"
+
+- name: Copy openssl configurations for CA certificate
+  copy:
+    src: "openssl.cnf"
+    dest: "{{ certificate_path }}/openssl.cnf"
+
+- name: Create CA certificate
+  shell:  openssl req -x509 -new -nodes -key {{ certificate_path }}/rootCA.key -days 1024 -out {{ certificate_path }}/rootCA.pem -config {{ certificate_path }}/openssl.cnf
+
+- name: Create server private key
+  shell: "openssl genrsa -out {{ certificate_path }}/{{ cluster_domain }}.key 2048"
+
+- name: Copy openssl configurations for server certificate
+  template:
+    src: "openssl-ingress.cnf.j2"
+    dest: "{{ certificate_path }}/openssl-ingress.cnf"
+
+- name: Create CSR for server certificate
+  shell: "openssl req -new -key {{ certificate_path }}/{{ cluster_domain }}.key -out {{ certificate_path }}/{{ cluster_domain }}.csr -config {{ certificate_path }}/openssl-ingress.cnf"
+
+- name: Create server certificate
+  shell: "openssl x509 -req -days 365 -in {{ certificate_path }}/{{ cluster_domain }}.csr -CA {{ certificate_path }}/rootCA.pem -CAkey {{ certificate_path }}/rootCA.key -CAcreateserial -out {{ certificate_path }}/{{ cluster_domain }}.crt -extensions req_ext -extfile {{ certificate_path }}/openssl-ingress.cnf -sha256"
