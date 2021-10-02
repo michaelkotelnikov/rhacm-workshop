@@ -1,0 +1,2 @@
+base_dir: "/tmp"
+certificate_path: "{{ base_dir }}/{{ cluster_domain }}"

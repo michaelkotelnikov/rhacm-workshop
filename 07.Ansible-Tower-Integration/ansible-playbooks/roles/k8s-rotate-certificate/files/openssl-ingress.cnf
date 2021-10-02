@@ -1,0 +1,24 @@
+[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+req_extensions = req_ext
+distinguished_name = dn
+
+[ dn ]
+C=UA
+ST=Dnepropetrovskaya
+L=Kamyanske
+O=DMK
+OU=OASUP
+emailAddress=webmaster@localhost
+CN = api.cluster-6f0a.6f0a.sandbox664.opentlc.com
+
+[ req_ext ]
+basicConstraints = CA:FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.0 = api.cluster-6f0a.6f0a.sandbox664.opentlc.com
+DNS.1 = *.apps.cluster-6f0a.6f0a.sandbox664.opentlc.com

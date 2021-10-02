@@ -316,3 +316,5 @@ namespace-policy-automation-once-2bgv8             46s
  Now, take a look at the Governance dashboard in RHACM. Note that the violation is no longer present in the policy you have created. The forbidden namespace is no longer present.
 
  ![forbidden-namespace-no-violation](images/forbidden-namespace-no-violation.png)
+
+ 

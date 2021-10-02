@@ -1,0 +1,7 @@
+- name: Create certificate file directory
+  file:
+    path: "{{ certificate_path }}"
+    state: directory
+
+- name: Create CA private key
+  shell: "openssl genrsa -out {{ certificate_path }}/rootCA.key 2048"
