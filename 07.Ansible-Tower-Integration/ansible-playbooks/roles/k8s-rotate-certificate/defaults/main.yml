@@ -1,2 +1,4 @@
 base_dir: "/tmp"
 certificate_path: "{{ base_dir }}/{{ cluster_domain }}"
+custom_ca_name: "custom-ca"
+old_certificate: "test"

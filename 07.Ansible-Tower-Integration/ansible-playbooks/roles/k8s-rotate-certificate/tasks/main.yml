@@ -27,3 +27,21 @@
 
 - name: Create server certificate
   shell: "openssl x509 -req -days 365 -in {{ certificate_path }}/{{ cluster_domain }}.csr -CA {{ certificate_path }}/rootCA.pem -CAkey {{ certificate_path }}/rootCA.key -CAcreateserial -out {{ certificate_path }}/{{ cluster_domain }}.crt -extensions req_ext -extfile {{ certificate_path }}/openssl-ingress.cnf -sha256"
+
+- name: Login into Kubernetes cluster
+  shell: "oc login -u {{ k8s_username }} -p {{ k8s_password }} {{ k8s_api_url }}"
+
+- name: Create configmap for CA
+  shell: "oc create configmap custom-ca --from-file=ca-bundle.crt={{ certificate_path }}/rootCA.pem -n openshift-config"
+
+- name: Update cluster proxy CA
+  shell: oc patch proxy/cluster --type=merge --patch='{"spec":{"trustedCA":{"name":"custom-ca"}}}'
+
+- name: Create secret for server certificate
+  shell: "oc create secret tls ingress-cert --cert={{ certificate_path }}/{{ cluster_domain }}.crt --key={{ certificate_path }}/{{ cluster_domain }}.key -n openshift-ingress"
+
+- name: Update cluster ingress certificate
+  shell: oc patch ingresscontroller.operator default --type=merge -p '{"spec":{"defaultCertificate":{"name":"ingress-cert"}}}' -n openshift-ingress-operator
+
+- name: Delete old certificate
+  shell: oc delete secret/{{ old_certificate }}
