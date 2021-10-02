@@ -44,4 +44,4 @@
   shell: oc patch ingresscontroller.operator default --type=merge -p '{"spec":{"defaultCertificate":{"name":"ingress-cert"}}}' -n openshift-ingress-operator
 
 - name: Delete old certificate
-  shell: oc delete secret/{{ old_certificate }}
+  shell: "oc delete secret/{{ old_certificate }}"
