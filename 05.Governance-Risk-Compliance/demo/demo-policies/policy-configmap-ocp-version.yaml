@@ -20,8 +20,10 @@ spec:
           namespace: default
         spec:
           namespaceSelector:
+            exclude:
+            - kube-*
             include:
-            - webserver-ocp-version
+            - default
           object-templates:
           - complianceType: musthave
             objectDefinition:
@@ -29,6 +31,7 @@ spec:
               apiVersion: v1
               metadata:
                 name: application-prod
+                namespace: webserver-ocp-version
               data:
                 application.html: |
                   <h1>Underlying OpenShift version is '{{ fromClusterClaim "version.openshift.io" }}'</h1>
