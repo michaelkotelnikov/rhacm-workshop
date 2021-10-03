@@ -1,0 +1,61 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: webserver-ocp-version
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Channel
+metadata:
+  name: webserver-ocp-version
+  namespace: webserver-ocp-version
+spec:
+  type: Git
+  pathname: https://github.com/michaelkotelnikov/rhacm-workshop.git 
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: dev-clusters
+  namespace: webserver-ocp-version
+spec:
+  clusterConditions:
+    - type: ManagedClusterConditionAvailable
+      status: "True"
+  clusterSelector:
+    matchLabels:
+      environment: dev
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription
+metadata:
+  name: webserver-ocp-version
+  namespace: webserver-ocp-version
+  labels:
+    app: webserver-ocp-version
+  annotations:
+    apps.open-cluster-management.io/github-path: 05.Governance-Risk-Compliance/demo-application/application-resources
+    apps.open-cluster-management.io/git-branch: master
+spec:
+  channel: webserver-ocp-version/webserver-ocp-version
+  placement:
+    placementRef:
+      kind: PlacementRule
+      name: dev-clusters
+---
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  name: webserver-ocp-version
+  namespace: webserver-ocp-version
+spec:
+  componentKinds:
+  - group: apps.open-cluster-management.io
+    kind: Subscription
+  descriptor: {}
+  selector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values:
+      - webserver-ocp-version
