@@ -9,7 +9,7 @@ metadata:
     policy.open-cluster-management.io/categories: CM Configuration Management
     policy.open-cluster-management.io/controls: CM-2 Baseline Configuration
 spec:
-  remediationAction: inform
+  remediationAction: enforce
   disabled: false
   policy-templates:
     - objectDefinition:
@@ -19,6 +19,9 @@ spec:
           name: policy-clusterclaims
           namespace: default
         spec:
+          namespaceSelector:
+            include:
+            - webserver-ocp-version
           object-templates:
           - complianceType: musthave
             objectDefinition:
@@ -26,7 +29,6 @@ spec:
               apiVersion: v1
               metadata:
                 name: application-prod
-                namespace: webserver-ocp-version
               data:
                 application.html: |
                   <h1>Underlying OpenShift version is '{{ fromClusterClaim "version.openshift.io" }}'</h1>
