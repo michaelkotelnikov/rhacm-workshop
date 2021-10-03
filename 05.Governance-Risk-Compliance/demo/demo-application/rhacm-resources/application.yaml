@@ -34,7 +34,7 @@ metadata:
   labels:
     app: webserver-ocp-version
   annotations:
-    apps.open-cluster-management.io/github-path: 05.Governance-Risk-Compliance05.Governance-Risk-Compliance/demo/demo-application/application-resources
+    apps.open-cluster-management.io/github-path: 05.Governance-Risk-Compliance/demo/demo-application/application-resources
     apps.open-cluster-management.io/git-branch: master
 spec:
   channel: webserver-ocp-version/webserver-ocp-version
