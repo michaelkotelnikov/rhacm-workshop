@@ -17,7 +17,6 @@ spec:
         kind: ConfigurationPolicy
         metadata:
           name: policy-clusterclaims
-          namespace: default
         spec:
           namespaceSelector:
             exclude:
