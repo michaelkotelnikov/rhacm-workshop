@@ -1,0 +1,48 @@
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-clusterclaims
+  namespace: rhacm-policies
+  annotations:
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/categories: CM Configuration Management
+    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration
+spec:
+  remediationAction: inform
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-clusterclaims
+          namespace: default
+        spec:
+          object-templates:
+          - complianceType: musthave
+            objectDefinition:
+              kind: ConfigMap
+              apiVersion: v1
+              metadata:
+                name: application-prod
+                namespace: webserver-ocp-version
+              data:
+                application.html: |
+                  <h1>Underlying OpenShift version is '{{ fromClusterClaim "version.openshift.io" }}'</h1>
+          remediationAction: enforce
+          severity: low
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: remove-kubeadmin-binding
+  namespace: rhacm-policies
+placementRef:
+  name: dev-clusters
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: policy-clusterclaims
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
