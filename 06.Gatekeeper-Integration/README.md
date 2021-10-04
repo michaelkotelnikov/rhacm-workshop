@@ -263,5 +263,41 @@ In this section you will perform an integration between Red Hat Advanced Cluster
 Run the next command to deploy the Compliance Operator using an RHACM policy -
 
 ```
-<hub> $ 
+<hub> $ oc apply -f https://raw.githubusercontent.com/michaelkotelnikov/rhacm-workshop/master/06.Gatekeeper-Integration/exercise-compliance-operator/policy-compliance-operator.yaml
 ```
+
+Make sure that the policy has been deployed successfully in RHACM's Governance dashboard - The policy status needs to be **compliant**. The Compliance Operator is deployed in the `openshift-compliance` namespace.
+
+```
+<hub> $ oc get pods -n openshift-compliance
+NAME                                                    READY   STATUS      RESTARTS   AGE
+compliance-operator-8c9bc7466-8h4js                     1/1     Running     1          7m27s
+ocp4-openshift-compliance-pp-6d7c7db4bd-wb5vf           1/1     Running     0          4m51s
+rhcos4-openshift-compliance-pp-c7b548bd-8pbhq           1/1     Running     0          4m51s
+```
+
+Now that the Compliance Operator is deployed, initiate a compliance scan using an RHACM policy. To initiate a compliance scan, run the next command -
+
+```
+<hub> $ oc apply -f https://raw.githubusercontent.com/michaelkotelnikov/rhacm-workshop/master/06.Gatekeeper-Integration/exercise-compliance-operator/policy-moderate-scan.yaml
+```
+
+After running the command, a compliance scan is initiated. The scan will take about 5 minutes to complete. Run the next command to check the status of the scan -
+
+```
+<hub> $ oc get compliancescan -n openshift-compliance
+NAME                     PHASE     RESULT
+ocp4-moderate            RUNNING   NOT-AVAILABLE
+rhcos4-moderate-master   RUNNING   NOT-AVAILABLE
+rhcos4-moderate-worker   RUNNING   NOT-AVAILABLE
+```
+
+When the scan completes, the `PHASE` field will change to `DONE`.
+
+After the scan completes, navigate to the RHACM governance dashboard. Note that the newly created policy is in a non-compliant state. Click on the policy name and navigate to **Status**. The `compliance-suite-moderate-results` ConfigurationPolicy is non-compliant because multiple ComplianceCheckResult objects indicate a `FAIL` check-status. To investigate the failing rules, press on _View details_ next to the `compliance-suite-moderate-results` ConfigurationPolicy.
+
+Scroll down, you will notice all failing compliance check results. To understand why these rules failed the scan press on `View yaml` next to the failing rule name.
+
+- Investigate the `ocp4-moderate-banner-or-login-template-set` ComplianceCheckResult. See what you can do to remediate the issue.
+- Investigate the `ocp4-moderate-configure-network-policies-namespaces` ComplianceCheckResult. See what you can do to remediate the issue.
+- Investigate the `rhcos4-moderate-master-no-empty-passwords` ComplianceCheckResult. See what you can do to remediate the issue. 
