@@ -416,7 +416,7 @@ Before you start this section of the exercise, make sure you delete the namespac
 
 In this section you will use RHACM's templating mechanism for governance policies. In this scenario, you will create an RHACM application. The application deploys a mariadb database and a Prometheus exporter ([mysqld-exporter](https://github.com/prometheus/mysqld_exporter)) that connects to the database and exports metrics.
 
-The mysqld-exporter requires mariadb's connection information in order to connect to the database and export the metrics. Since in production environments secrets like _database passwords_ can be automatically generated, it's might be required to use a dynamic template that passes such information to the exporter.
+The mysqld-exporter requires mariadb's connection information in order to connect to the database and export the metrics. Since secrets like _database passwords_ can be automatically generated in production environments, it might be required to use a dynamic template that passes such information to the exporter's configuration.
 
 In this scenario, you will pass two templated variables to the mysqld-exporter deployment using a dedicated ConfigMap resource. The variables are merged into a single *connection string* that the exporter uses to connect to the mariadb database.
 
