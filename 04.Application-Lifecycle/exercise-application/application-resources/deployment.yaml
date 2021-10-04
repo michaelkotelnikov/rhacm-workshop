@@ -24,6 +24,13 @@ spec:
             - mountPath: /app/application.html
               name: application-prod
               subPath: application.html
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
       volumes:
         - configMap:
             defaultMode: 420
