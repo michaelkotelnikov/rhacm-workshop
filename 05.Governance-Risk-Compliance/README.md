@@ -411,3 +411,107 @@ Before you start this section of the exercise, make sure you delete the namespac
     memory: 1Gi
 ...
 ```
+
+## Templating Policies
+
+In this section you will use RHACM's templating mechanism for governance policies. In this scenario, you will create an RHACM application. The application deploys a mariadb database and a Prometheus exporter ([mysqld-exporter](https://github.com/prometheus/mysqld_exporter)) that connects to the database and exports metrics.
+
+The mysqld-exporter requires mariadb's connection information in order to connect to the database and export the metrics. Since in production environments secrets like _database passwords_ can be automatically generated, it's might be required to use a dynamic template that passes such information to the exporter.
+
+In this scenario, you will pass two templated variables to the mysqld-exporter deployment using a dedicated ConfigMap resource. The variables are merged into a single *connection string* that the exporter uses to connect to the mariadb database.
+
+- _mariadb Service endpoint_ - The ConfigMap will populate the Service resource ClusterIP dynamically. The service endpoint might be different between managed clusters, using a template in this scenario can help the stability of the system. The `lookup` function is used to identify the service's ClusterIP - `{{ (lookup "v1" "Service" "mariadb-metrics" "mariadb").spec.clusterIP }}`.
+- _mariadb Root password_ - The ConfigMap will provide the connection password dynamically. The password can be different for database instances in multi cluster environments. Using a template in this scenario can solve inconsistencies between clusters. The `fromSecret` function is used to pull the password from mariadb's secret - `{{ fromSecret "mariadb-metrics" "mariadb" "MYSQL_ROOT_PASSWORD"}}`
+
+To further understand the structure of the application, go over the [application resources](exercise/exercise-application). All of the application resources are present in this directory besides the ConfigMap resource which is created using a templated policy.
+
+The next [templated policy](exercise/exercise-policies/metrics-configmap.yaml) is used to create the ConfigMap resource that the exporter uses as a connection string - 
+
+```
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: metrics-connection-string
+  namespace: mariadb-metrics
+data:
+  connection_string: 'root:{{ fromSecret "mariadb-metrics" "mariadb" "MYSQL_ROOT_PASSWORD"}}@({{ (lookup "v1" "Service" "mariadb-metrics" "mariadb").spec.clusterIP }}:3306)/'
+```
+
+Deploy the templated policy by running the next command on the hub cluster -
+
+```
+<hub> $ oc apply -f https://raw.githubusercontent.com/michaelkotelnikov/rhacm-workshop/master/05.Governance-Risk-Compliance/exercise/exercise-policies/metrics-configmap.yaml
+```
+
+The policy will appear at the Governance dashboard at a non-compliant state. The policy depends on the `mariadb` Secret resource and the `mariadb` Service resource. Since you have not created them yet, the policy is not able to create the desired ConfigMap resource.
+
+Deploy the mariadb-metrics application in order to create the mariadb and exporter instances. Deploy the application by running the next command -
+
+```
+<hub> $ oc apply -f https://raw.githubusercontent.com/michaelkotelnikov/rhacm-workshop/master/05.Governance-Risk-Compliance/exercise/exercise-application/rhacm-resources/application.yaml
+```
+
+Wait until the application is available. After the application is available, make sure that the policy you have deployed is compliant in the Governance dashboard. Make sure that the template worked by running the next command on the hub cluster.
+
+```
+<hub> $ oc get configmap metrics-connection-string -o yaml -n mariadb-metrics
+apiVersion: v1
+data:
+  connection_string: root:cmVkaGF0@(172.30.14.60:3306)/
+kind: ConfigMap
+metadata:
+  name: metrics-connection-string
+  namespace: mariadb-metrics
+```
+
+Navigate to the URL exported by the `Route` resource in the `mariadb-metrics` namespace. The `Route` exposes the mariadb metrics from the exporter instance.
+
+```
+<hub> $ oc get route -n mariadb-metrics
+NAME              HOST/PORT                                                                       PATH   SERVICES          PORT       TERMINATION   WILDCARD
+mysqld-exporter   mysqld-exporter-mariadb-metrics.apps.cluster-6f0a.6f0a.sandbox664.opentlc.com          mysqld-exporter   9104-tcp   edge          None
+```
+
+Mariadb metrics are presented by running the next command -
+
+```
+<hub> $ curl https://<route>/metrics -k
+...
+# HELP go_memstats_heap_inuse_bytes Number of heap bytes that are in use.
+# TYPE go_memstats_heap_inuse_bytes gauge
+go_memstats_heap_inuse_bytes 3.80928e+06
+# HELP go_memstats_heap_objects Number of allocated objects.
+# TYPE go_memstats_heap_objects gauge
+go_memstats_heap_objects 7487
+# HELP go_memstats_heap_released_bytes Number of heap bytes released to OS.
+# TYPE go_memstats_heap_released_bytes gauge
+go_memstats_heap_released_bytes 6.270976e+07
+# HELP go_memstats_heap_sys_bytes Number of heap bytes obtained from system.
+# TYPE go_memstats_heap_sys_bytes gauge
+go_memstats_heap_sys_bytes 6.668288e+07
+# HELP go_memstats_last_gc_time_seconds Number of seconds since 1970 of last garbage collection.
+# TYPE go_memstats_last_gc_time_seconds gauge
+go_memstats_last_gc_time_seconds 0
+# HELP go_memstats_lookups_total Total number of pointer lookups.
+# TYPE go_memstats_lookups_total counter
+go_memstats_lookups_total 0
+# HELP go_memstats_mallocs_total Total number of mallocs.
+# TYPE go_memstats_mallocs_total counter
+go_memstats_mallocs_total 8093
+# HELP go_memstats_mcache_inuse_bytes Number of bytes in use by mcache structures.
+# TYPE go_memstats_mcache_inuse_bytes gauge
+go_memstats_mcache_inuse_bytes 19200
+# HELP go_memstats_mcache_sys_bytes Number of bytes used for mcache structures obtained from system.
+# TYPE go_memstats_mcache_sys_bytes gauge
+go_memstats_mcache_sys_bytes 32768
+# HELP go_memstats_mspan_inuse_bytes Number of bytes in use by mspan structures.
+# TYPE go_memstats_mspan_inuse_bytes gauge
+go_memstats_mspan_inuse_bytes 63376
+# HELP go_memstats_mspan_sys_bytes Number of bytes used for mspan structures obtained from system.
+# TYPE go_memstats_mspan_sys_bytes gauge
+go_memstats_mspan_sys_bytes 65536
+# HELP go_memstats_next_gc_bytes Number of heap bytes when next garbage collection will take place.
+# TYPE go_memstats_next_gc_bytes gauge
+go_memstats_next_gc_bytes 4.473924e+06
+...
+```
