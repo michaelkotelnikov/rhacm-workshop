@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mysqld-exporter
+  name: mysqld-exporter
+spec:
+  replicas: 1
+  selector:
+    app: mysqld-exporter
+  template:
+    metadata:
+      labels:
+        app: mysqld-exporter
+    spec:
+      containers:
+        - env:
+          - name: DATA_SOURCE_NAME
+            value: root:cmVkaGF0@(mariadb.mariadb-metrics.svc.cluster.local:3306)/
+          image: docker.io/prom/mysqld-exporter:latest
+          imagePullPolicy: Always
+          name: mysqld-exporter
+          ports:
+          - containerPort: 9104
+            protocol: TCP
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"

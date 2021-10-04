@@ -1,0 +1,61 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mariadb-metrics
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Channel
+metadata:
+  name: mariadb-metrics
+  namespace: mariadb-metrics
+spec:
+  type: Git
+  pathname: https://github.com/michaelkotelnikov/rhacm-workshop.git 
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: prod-clusters
+  namespace: mariadb-metrics
+spec:
+  clusterConditions:
+    - type: ManagedClusterConditionAvailable
+      status: "True"
+  clusterSelector:
+    matchLabels:
+      environment: production
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription
+metadata:
+  name: mariadb-metrics
+  namespace: mariadb-metrics
+  labels:
+    app: mariadb-metrics
+  annotations:
+    apps.open-cluster-management.io/github-path: 05.Governance-Risk-Compliance/demo/exercise-application/application-resources
+    apps.open-cluster-management.io/git-branch: master
+spec:
+  channel: mariadb-metrics/mariadb-metrics
+  placement:
+    placementRef:
+      kind: PlacementRule
+      name: prod-clusters
+---
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  name: mariadb-metrics
+  namespace: mariadb-metrics
+spec:
+  componentKinds:
+  - group: apps.open-cluster-management.io
+    kind: Subscription
+  descriptor: {}
+  selector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values:
+      - mariadb-metrics

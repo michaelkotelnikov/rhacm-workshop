@@ -2,7 +2,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: policy-clusterclaims
+  name: policy-mariadb-metrics
   namespace: rhacm-policies
   annotations:
     policy.open-cluster-management.io/standards: NIST SP 800-53
@@ -16,7 +16,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: policy-clusterclaims
+          name: policy-mariadb-metrics
         spec:
           namespaceSelector:
             exclude:
@@ -29,24 +29,23 @@ spec:
               kind: ConfigMap
               apiVersion: v1
               metadata:
-                name: application-prod
-                namespace: webserver-ocp-version
+                name: metrics-connection-string
+                namespace: mariadb-metrics
               data:
-                application.html: |
-                  <h1>Underlying OpenShift version is '{{ fromClusterClaim "version.openshift.io" }}'</h1>
+                connection_string: 'root:{{ fromSecret "mariadb-metrics" "mariadb" "MYSQL_ROOT_PASSWORD"}}@({{ (lookup "v1" "Service" "mariadb-metrics" "mariadb").spec.clusterIP }}:3306)/'
           remediationAction: enforce
           severity: low
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: clusterclaims-binding
+  name: mariadb-metrics-binding
   namespace: rhacm-policies
 placementRef:
-  name: dev-clusters
+  name: prod-policies-clusters
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
-- name: policy-clusterclaims
+- name: policy-mariadb-metrics
   kind: Policy
   apiGroup: policy.open-cluster-management.io
