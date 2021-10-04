@@ -34,7 +34,7 @@ metadata:
   labels:
     app: mariadb-metrics
   annotations:
-    apps.open-cluster-management.io/github-path: 05.Governance-Risk-Compliance/demo/exercise-application/application-resources
+    apps.open-cluster-management.io/github-path: 05.Governance-Risk-Compliance/exercise/exercise-application/application-resources
     apps.open-cluster-management.io/git-branch: master
 spec:
   channel: mariadb-metrics/mariadb-metrics
