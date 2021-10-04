@@ -239,19 +239,29 @@ EOF
 
 Login to the managed cluster and try creating a web server using the next commands - 
 ```
-<managed> $ oc new-project httpd-test
+<hub> $ oc new-project httpd-test
 
-<managed> $ oc new-app httpd
+<hub> $ oc new-app httpd
 ```
 
 Try exposing the web server using an unsecure route
 
 ```
-<managed> $ oc expose svc/httpd
+<hub> $ oc expose svc/httpd
 ```
 
 Try exposing the web server using a secure route
 
 ```
-<managed> $ oc create route edge --service=httpd
+<hub> $ oc create route edge --service=httpd
+```
+
+## Compliance Operator Integration
+
+In this section you will perform an integration between Red Hat Advanced Cluster Management and the OpenSCAP Compliance Operator. You will create an RHACM policy that deploys the Compliance Operator. Afterwards, you will create an RHACM policy that initiates a compliance scan and monitors the results.
+
+Run the next command to deploy the Compliance Operator using an RHACM policy -
+
+```
+<hub> $ 
 ```
