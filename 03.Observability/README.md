@@ -1,6 +1,6 @@
 # Exercise 3 - Observability
 
-In this exercise you enable and use the `Observability` function in Red Hat Advanced Cluster Management. You will configure observability, explore the build in dashboards, enable custom alerts using Thanos Ruler and design custom dashboards for your own organizational needs.
+In this exercise you enable and use the `Observability` function in Red Hat Advanced Cluster Management. You will configure observability, explore the built-in dashboards, enable custom alerts using Thanos Ruler and design custom dashboards for your own organizational needs.
 
 ### 3.1 - Deploying Observability
 
@@ -24,6 +24,7 @@ After running the command, a `minio` deployment will be available. The S3 endpoi
 
 ```
 <hub> $ oc extract secret/thanos-object-storage --to=- -n open-cluster-management-observability
+
 # thanos.yaml
 type: s3
 config:
@@ -46,6 +47,7 @@ Make sure that both `multicluster-observability-operator` and `endpoint-operator
 
 ```
 <hub> $ oc get pods -n open-cluster-management-observability
+
 NAME                                                       READY   STATUS    RESTARTS   AGE
 grafana-dev-5f9585d797-qnpms                               2/2     Running   0          27h
 minio-79c7ff488d-wbzrm                                     1/1     Running   0          2d1h
@@ -82,16 +84,17 @@ observability-thanos-store-shard-1-0                       1/1     Running   2  
 observability-thanos-store-shard-2-0                       1/1     Running   2          2d1h
 
 <hub> $ oc get pods -n open-cluster-management-addon-observability
+
 NAME                                              READY   STATUS    RESTARTS   AGE
 endpoint-observability-operator-764b6c666-9s7nz   1/1     Running   0          2d1h
 metrics-collector-deployment-765946868-hmk5d      1/1     Running   0          2d1h
 ```
 
-Now, that all pods are running, in RHACM's dashboard, navigate to **Cluster Lifecycle** -> **Grafana (top right side)**. Make sure that the dashboards are available and graphs are present.
+Now, that all pods are running, log into RHACM's dashboard and navigate to **Cluster Lifecycle** -> **Grafana (top right side)**. Make sure that the dashboards are available and graphs are present.
 
 ### 3.2 - Explore the default Grafana dashboards
 
-This part focuses on the default Grafana dashboards that come with RHACM. Each dashboard has its own characteristics and provides valueable information to the system administrator in the organization. This section contains multiple tasks that require you to look for certain values in the default dashboards that come with `MCO`.
+This part focuses on the default Grafana dashboards that come with RHACM. Each dashboard has its own characteristics and provides valueable information to a system administrator in the organization. This section contains multiple tasks that require you to look for certain values in the default dashboards that come with `MCO`.
 
 - Find the maximum latency value for the `local-cluster` API server.
 - Find out how much % of `local-cluster`'s memory is utilized.
@@ -109,8 +112,6 @@ In this part you will configure custom alerts to monitor your environment. By co
 The first alert you will configure in the exercise will initiate a notification when a cluster's memory utilization reaches over 20%. In order to create the alert, create the next ConfigMap in the `open-cluster-management-observability` namespace (Make sure to go through the alert before applying it!).
 
 ```
-<hub> $ cat >> alert-configmap.yaml << EOF
----
 apiVersion: v1
 data:
   custom_rules.yaml: |
@@ -131,9 +132,6 @@ kind: ConfigMap
 metadata:
   name: thanos-ruler-custom-rules
   namespace: open-cluster-management-observability
-EOF
-
-<hub> $ oc apply -f alert-configmap.yaml
 ```
 
 Now that the alert is configured, check whether the alert is initiated or not. To check the alert, navigate to the Grafana instance you've deployed in the previous task. In the Grafana instance, go to the 'Explore' dashboard (compass icon on the left slidebar). Before checking whether the alert is initiated or not, run the alert's query to check the memory utilization in the `local-cluster` cluster. Copy the next expression to the `query` tab, and press `SHIFT + ENTER` to run the query.
@@ -162,9 +160,9 @@ The initiated alert should now appear.
 
 #### 3.3.2 - Alert #2
 
-The second alert you will configure will monitor the etcd database size. An alert will be initiated if the etcd database size in `local-cluster` reaches more than 100MiB. This time, you will create the alert expression by yourself (HINT: you can use the ACM - Clusters Overview dashboard for help).
+The second alert will monitor the etcd database size. An alert will be initiated if the etcd database size in `local-cluster` reaches more than 100MiB. This time, you will create the alert expression by yourself (HINT: you can use the ACM - Clusters Overview dashboard for help).
 
-In order to deploy the alert to `MCO` add the new alert definition to the `ConfigMap` you have created for the previous alert. The ConfigMap should look like -
+In order to deploy the second alert to `MCO` add the new alert definition to the `ConfigMap` you have created for the previous alert. The ConfigMap should look like -
 
 ```
 apiVersion: v1
@@ -202,6 +200,8 @@ Make sure that the alert works as expected.
 In this section you will add your own dashboard to the default dashboards that come with MCO. 
 
 Before you can create a custom dashboard, you need to spin up an instance of a "Development Grafana" in which you'll design your dashboard. Follow the steps described in slides 63 and 64 in the [workshop's presentation](https://docs.google.com/presentation/d/1LCPvIT_nF5hwnrfYdlD0Zie4zdDxc0kxZtW3Io5jfFk/edit?usp=sharing) to create the development instance of Grafana.
+
+**NOTE** Make sure to log into the Grafana Dev instance with the wanted `admin` user before you run the `./switch-to-grafana-admin.sh` script!
 
 
 #### 3.4.1 - Panel #1 - Available memory per node
@@ -241,7 +241,7 @@ ip-10-0-202-11.us-east-2.compute.internal    1754m        23%    8781Mi         
 
 #### 3.4.3 - Export the dashboard to the main Grafana instance
 
-Until now, you have worked on the "Development" Grafana instance. It's time to export the dashboard you've created to the main "Production" Grafana instance. Before you begin the export process, make sure to save your dashboard by pressing `CTRL + S`.
+Until now, you have worked on the "Development" Grafana instance. It's time to export the dashboard you've created to the main "Production" Grafana instance. Before you begin the export process, make sure to save your dashboard by pressing `CTRL + S`. Provide the dashboard with a simple, declerative name.
 
 To export the dashboard to the "Production" instance, follow the steps described in slides 65 and 66 in the [workshop's presentation](https://docs.google.com/presentation/d/1LCPvIT_nF5hwnrfYdlD0Zie4zdDxc0kxZtW3Io5jfFk/edit?usp=sharing).
 
