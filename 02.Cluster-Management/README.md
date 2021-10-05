@@ -56,7 +56,7 @@ In this exercise you will be using the Red Hat Advanced Cluster Management porta
 
 ## 2.3 Upgrade the cluster using Advanced Cluster Management
 
-**NOTE**: Do this exercise after you are finished with the **whole** workshop. The upgrading process may take up to an hour to complete.
+**NOTE**: Do this exercise towards the end of the day. The upgrading process may take up to an hour to complete.
 
-1. Change the **channel version** on the local-cluster from stable-**4.4** to stable-**4.5**.
+1. Change the **channel version** on the local-cluster from stable-**4.x** to stable-**4.x+1**.
 2. Upgrade the cluster using Red Hat Advanced Cluster Management.
