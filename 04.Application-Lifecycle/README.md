@@ -306,9 +306,9 @@ Now that you have a running instance of ArgoCD, let's integrate it with RHACM!
 
 ## Preparing RHACM for ArgoCD Integration
 
-In this part you will create the relevant resources to import `local-cluster` into ArgoCD's managed clusters.
+In this part you will create the resources to import `local-cluster` into ArgoCD's managed clusters.
 
-Create the next ManagedClusterSet resource. The ManagedClusterSet resource will include `local-cluster` in it, and will be associated with the `openshift-gitops` namespace.
+Create the next ManagedClusterSet resource. The ManagedClusterSet resource will include the `local-cluster` cluster. The ManagedClusterSet resource is associated with the `openshift-gitops` namespace.
 
 ```
 <hub> $ cat >> managedclusterset.yaml << EOF
