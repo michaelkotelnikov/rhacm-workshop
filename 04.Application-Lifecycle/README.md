@@ -421,3 +421,12 @@ After viewing the applications and their resources in the ArgoCD dashboard, log 
 The deployed application resources can be seen in the ApplicationSet instance in RHACM -
 
 ![rhacm-argocd-app-details](images/rhacm-argocd-app-details.png)
+
+Make sure that the application is available by navigating to its Route resource.
+
+```
+<hub> $ oc get route -n webserver-prod
+
+NAME        HOST/PORT                              PATH                SERVICES    PORT       TERMINATION   WILDCARD
+webserver   webserver-webserver-prod.apps.<FQDN>   /application.html    webserver   8080-tcp   edge          None
+```
