@@ -334,7 +334,7 @@ labels:
 ...
 ```
 
-Create the ManagedClusterSetBinding resource to bind the `local-cluster` ManagedClusterSet resource to the `openshift-gitops` resource. Creating the resource will allow ArgoCD to access `local-cluster` information and import it into its management stack.
+Create the ManagedClusterSetBinding resource to bind the `local-cluster` ManagedClusterSet resource to the `openshift-gitops` resource. Creating the ManagedClusterSetBinding resource will allow ArgoCD to access `local-cluster` information and import it into its management stack.
 
 ```
 <hub> $ cat >> managedclustersetbinding.yaml << EOF
@@ -351,7 +351,7 @@ EOF
 <hub> $ oc apply -f managedclustersetbinding.yaml
 ```
 
-Create the Placement resource and bind it to `all-clusters` ManagedClusterSet. Note that we will not be using any special filters in this exercise.
+Create the Placement resource and bind it to `all-clusters` ManagedClusterSet. Note that you will not be using any special filters in this exercise.
 
 ```
 <hub> $ cat >> placement.yaml << EOF
