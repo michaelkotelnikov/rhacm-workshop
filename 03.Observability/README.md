@@ -245,4 +245,4 @@ Until now, you have worked on the "Development" Grafana instance. It's time to e
 
 To export the dashboard to the "Production" instance, follow the steps described in slides 65 and 66 in the [workshop's presentation](https://docs.google.com/presentation/d/1LCPvIT_nF5hwnrfYdlD0Zie4zdDxc0kxZtW3Io5jfFk/edit?usp=sharing).
 
-Make sure that the dashboard is available in the Production Grafana instance.
+Make sure that the dashboard is available in the Production Grafana instance in the 'Custom' directory.
