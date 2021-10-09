@@ -374,7 +374,7 @@ In this section, you will create a policy that `informs` if a namespace with the
 
 After deploying the policy, make sure that it is in a `compliant` state.
 
-Create a namespace with the `rhacm-dangerous-policy-namespace` name. Make sure that a violation is initiated.
+Create a namespace with the `rhacm-dangerous-policy-namespace` name on the managed cluster. Make sure that a violation is initiated.
 
 ```
 <managed cluster> $ oc create namespace rhacm-dangerous-policy-namespace
