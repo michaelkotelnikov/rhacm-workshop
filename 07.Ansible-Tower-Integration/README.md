@@ -274,7 +274,7 @@ After creating the policy, make sure that the policy works as expected. Create a
 
  #### Configuring PolicyAutomation
 
- Now that a policy is configured, create a PolicyAutomation object that will initiate an Ansible Jon that will remediate the violation. Copy the next PolicyAutomation object definition to your local workstation.
+ Now that a policy is configured, create a PolicyAutomation object that will initiate an Ansible Job that will remediate the violation. Copy the next PolicyAutomation object definition to your local workstation.
 
  ```
 apiVersion: policy.open-cluster-management.io/v1beta1

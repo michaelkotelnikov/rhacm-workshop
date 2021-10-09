@@ -48,6 +48,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: placement-remove-dangerous-namespace
+  namespace: rhacm-policies
 spec:
   clusterConditions:
     - status: 'True'
