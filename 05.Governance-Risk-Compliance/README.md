@@ -457,10 +457,10 @@ Deploy the mariadb-metrics application in order to create the mariadb and export
 <hub> $ oc apply -f https://raw.githubusercontent.com/michaelkotelnikov/rhacm-workshop/master/05.Governance-Risk-Compliance/exercise/exercise-application/rhacm-resources/application.yaml
 ```
 
-Wait until the application is available. After the application is available, make sure that the policy you have deployed is compliant in the Governance dashboard. Make sure that the template worked by running the next command on the hub cluster.
+Wait until the application is available. After the application is available, make sure that the policy you have deployed is compliant in the Governance dashboard. Make sure that the template worked by running the next command on the managed cluster.
 
 ```
-<hub> $ oc get configmap metrics-connection-string -o yaml -n mariadb-metrics
+<managed cluster> $ oc get configmap metrics-connection-string -o yaml -n mariadb-metrics
 apiVersion: v1
 data:
   connection_string: root:cmVkaGF0@(172.30.14.60:3306)/
@@ -473,7 +473,7 @@ metadata:
 Navigate to the URL exported by the `Route` resource in the `mariadb-metrics` namespace. The `Route` exposes the mariadb metrics from the exporter instance.
 
 ```
-<hub> $ oc get route -n mariadb-metrics
+<managed cluster> $ oc get route -n mariadb-metrics
 NAME              HOST/PORT                                                                       PATH   SERVICES          PORT       TERMINATION   WILDCARD
 mysqld-exporter   mysqld-exporter-mariadb-metrics.apps.cluster-6f0a.6f0a.sandbox664.opentlc.com          mysqld-exporter   9104-tcp   edge          None
 ```
@@ -481,7 +481,7 @@ mysqld-exporter   mysqld-exporter-mariadb-metrics.apps.cluster-6f0a.6f0a.sandbox
 Mariadb metrics are presented by running the next command -
 
 ```
-<hub> $ curl https://<route>/metrics -k
+<managed cluster> $ curl https://<route>/metrics -k
 ...
 # HELP go_memstats_heap_inuse_bytes Number of heap bytes that are in use.
 # TYPE go_memstats_heap_inuse_bytes gauge
