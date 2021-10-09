@@ -105,6 +105,8 @@ EOF
 <hub> $ oc apply -f policy-gatekeeper-operator.yaml
 ```
 
+### Policy #1 - Disallow unencrypted routes
+
 Apply the next policy to the hub cluster in order to deny the creation of http (not encrypted traffic) routes on the managed clusters -
 
 ```
@@ -261,6 +263,27 @@ Try exposing the web server using a secure route
 ```
 <managed cluster> $ oc create route edge --service=httpd
 ```
+
+### Policy #2 - Namespace Management
+
+In this section you will create a Gatekeeper based policy. The policy with disallow namespaces with the `state: dangerous` label. If a namespace has this label, its creation will be disallowed. Make sure to create a message that indicates the error.
+
+An example of a disallowed namespace:
+
+```
+{
+  "apiVersion": "v1",
+  "kind": "Namespace",
+  "metadata": {
+    "labels": {
+      "state": "dangerous"
+    },
+    "name": "michael"
+  }
+}
+```
+
+You make use the presentation and the previously created policies as a reference for this policy. Use the [rego playground](https://play.openpolicyagent.org/) to check the validity of your rego policy.
 
 ## Compliance Operator Integration
 
