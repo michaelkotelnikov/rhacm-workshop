@@ -8,6 +8,8 @@ In this exercise you will go through the Compliance features that come with Red 
 <hub> $ oc apply -f https://raw.githubusercontent.com/michaelkotelnikov/rhacm-workshop/master/04.Application-Lifecycle/exercise-application/rhacm-resources/application.yaml
 ```
 
+**NOTE!** Make sure that the `environment=production` label is associated with the managed cluster!
+
 Before you start creating the policies, make sure to create a namespace to populate the CRs that associate with RHACM policies.
 
 ```
