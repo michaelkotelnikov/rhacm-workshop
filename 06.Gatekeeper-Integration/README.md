@@ -2,12 +2,9 @@
 
 In this exercise you will go through the Compliance features that come with Open Policy Agent Gatekeeper and the Compliance Operator. You will apply a number of policies to the cluster in order to comply with global security and management standards.
 
-Make sure that you are based on the _rhacm-policies_ namespace.
+## Gatekeeper
 
-```
-<hub> $ oc project rhacm-policies
-Now using project "rhacm-policies" on server "https://api.cluster-44wjh.44wjh.sandbox81.opentlc.com:6443".
-```
+In this section you create and manage Gatekeeper policies. The policies are based on the REGO policy language.
 
 Apply the next policy to the hub cluster. The policy will install the Gatekeeper operator on the managed cluster.
 
@@ -18,6 +15,7 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
   name: policy-gatekeeper-operator
+  namespace: rhacm-policies
   annotations:
     policy.open-cluster-management.io/standards: NIST SP 800-53
     policy.open-cluster-management.io/categories: CM Configuration Management
@@ -80,6 +78,7 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
   name: binding-policy-gatekeeper-operator
+  namespace: rhacm-policies
 placementRef:
   name: placement-policy-gatekeeper-operator
   kind: PlacementRule
@@ -93,6 +92,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: placement-policy-gatekeeper-operator
+  namespace: rhacm-policies
 spec:
   clusterConditions:
     - status: "True"
@@ -114,6 +114,7 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
   name: policy-gatekeeper-route-httpsonly
+  namespace: rhacm-policies
   annotations:
     policy.open-cluster-management.io/standards: NIST SP 800-53
     policy.open-cluster-management.io/categories: CM Configuration Management
@@ -212,6 +213,7 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
   name: binding-policy-gatekeeper-route-httpsonly
+  namespace: rhacm-policies
 placementRef:
   name: placement-policy-gatekeeper-route-httpsonly
   kind: PlacementRule
@@ -225,6 +227,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: placement-policy-gatekeeper-route-httpsonly
+  namespace: rhacm-policies
 spec:
   clusterConditions:
     - status: "True"
@@ -239,21 +242,21 @@ EOF
 
 Login to the managed cluster and try creating a web server using the next commands - 
 ```
-<hub> $ oc new-project httpd-test
+<managed cluster> $ oc new-project httpd-test
 
-<hub> $ oc new-app httpd
+<managed cluster> $ oc new-app httpd
 ```
 
 Try exposing the web server using an unsecure route
 
 ```
-<hub> $ oc expose svc/httpd
+<managed cluster> $ oc expose svc/httpd
 ```
 
 Try exposing the web server using a secure route
 
 ```
-<hub> $ oc create route edge --service=httpd
+<managed cluster> $ oc create route edge --service=httpd
 ```
 
 ## Compliance Operator Integration
