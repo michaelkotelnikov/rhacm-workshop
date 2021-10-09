@@ -55,7 +55,7 @@ We will configure the policy definition in two stages -
 
 ### Stage 1 - Deny all traffic to the application namespace
 
-The policy you will configure in this section is enforcing a _deny all_ NetworkPolicy in the webserver-acm namespace on _local-cluster_. A _deny all_ NetworkPolicy object example -
+The policy you will configure in this section is enforcing a _deny all_ NetworkPolicy in the webserver-acm namespace on the managed cluster. A _deny all_ NetworkPolicy object example -
 
 ```
 kind: NetworkPolicy
@@ -67,7 +67,7 @@ spec:
   ingress: []
 ```
 
-In order to create a _deny all_ NetworkPolicy object on _local-cluster_ using Red Hat Advanced Cluster Management for Kubernetes, apply the next commands to the hub cluster -
+In order to create a _deny all_ NetworkPolicy object on the managed cluster using Red Hat Advanced Cluster Management for Kubernetes, apply the next commands to the hub cluster -
 
 ```
 <hub> $ cat >> denyall-networkpolicy-policy.yaml << EOF
@@ -126,16 +126,16 @@ EOF
 
 The above command creates two objects _Policy_ and _PlacementBinding_.
 
-* The _Policy_ objects define the NetworkPolicy that will be deployed on _local-cluster_. It associates the NetworkPolicy to the webserver-acm namespace, and enforces it.
+* The _Policy_ objects define the NetworkPolicy that will be deployed on the managed cluster. It associates the NetworkPolicy to the webserver-acm namespace, and enforces it.
 * The _PlacementRule_ resource associates the _Policy_ object with the _PlacementRule _resource that was created in the beginning of the exercise. Thereby, allowing the Policy to apply to all clusters with the _environment=production_ label.
 
-After the creation of the objects, navigate to **Governance Risk and Compliance** in the Red Hat Advanced Cluster Management for Kubernetes console. Note that the policy is configured, and _local-cluster_ is compliant.
+After the creation of the objects, navigate to **Governance Risk and Compliance** in the Red Hat Advanced Cluster Management for Kubernetes console. Note that the policy is configured, and the managed cluster is compliant.
 
 Make sure that the policy is effective by trying to navigate to the application once again - **https://&lt;webserver application route>/application.html**. (The application should not be accessible).
 
 ### Stage 2 - Allow traffic from the Ingress Controller
 
-In this section, you will modify the policy you have created in the previous section. You will add another ObjectDefinition entry to the policy. The ObjectDefinition will apply a second NetworkPolicy object onto the webserver-acm namespace in _local-cluster_. The NetworkPolicy object will allow traffic from the Ingress Controller to reach the webserver application in port 8080. An example definition of the NetworkPolicy object -
+In this section, you will modify the policy you have created in the previous section. You will add another ObjectDefinition entry to the policy. The ObjectDefinition will apply a second NetworkPolicy object onto the webserver-acm namespace in the managed cluster. The NetworkPolicy object will allow traffic from the Ingress Controller to reach the webserver application in port 8080. An example definition of the NetworkPolicy object -
 
 ```
 apiVersion: networking.k8s.io/v1
@@ -244,7 +244,7 @@ EOF
 
 After applying the above policy, the application will be reachable from OpenShift’s ingress controller only. Any other traffic will be dropped.
 
-Make sure that _local-cluster_ is compliant to the policy by navigating to **Governance Risk and Compliance** in the Red Hat Advanced Cluster Management for Kubernetes console.
+Make sure that the managed cluster is compliant to the policy by navigating to **Governance Risk and Compliance** in the Red Hat Advanced Cluster Management for Kubernetes console.
 
 ![networkpolicy-status](images/networkpolicy-status.png)
 
@@ -270,7 +270,7 @@ spec:
       type: Container
 ```
 
-In order to apply the LimitRange object to _local-cluster_ using Red Hat Advanced Cluster Management for Kubernetes, run the next commands -
+In order to apply the LimitRange object to the managed cluster using Red Hat Advanced Cluster Management for Kubernetes, run the next commands -
 
 ```
 <hub> $ cat >> limitrange-policy.yaml << EOF
@@ -330,11 +330,11 @@ EOF
 <hub> $ oc apply -f limitrange-policy.yaml
 ```
 
-Make sure that _local-cluster_ is compliant to the policy by navigating to **Governance Risk and Compliance** in the Red Hat Advanced Cluster Management for Kubernetes console.
+Make sure that the managed cluster is compliant to the policy by navigating to **Governance Risk and Compliance** in the Red Hat Advanced Cluster Management for Kubernetes console.
 
-Make sure that the LimitRange object is created in _local-cluster_ -
+Make sure that the LimitRange object is created in your managed cluster -
 
-* Log into _local-cluster_ -
+* Log into the managed cluster -
 
 ```
 <managed cluster> $ oc login -u admin -p <password> https://api.cluster.2222.sandbox.opentlc.com:6443
@@ -346,7 +346,7 @@ Make sure that the LimitRange object is created in _local-cluster_ -
 <managed cluster> $ oc get limitrange webserver-limit-range -o yaml -n webserver-acm
 ```
 
-As the admin user in _local-cluster_, try to modify the values of the LimitRange resource (change the memory limit from 512Mi to 1024Mi) -
+As the admin user in the managed cluster, try to modify the values of the LimitRange resource (change the memory limit from 512Mi to 1024Mi) -
 
 ```
 <managed cluster> $ oc whoami
@@ -407,7 +407,7 @@ Before you start this section of the exercise, make sure you delete the namespac
 
 6. Edit the LimitRange policy in [https://github.com/&lt;your-username>/rhacm-workshop/blob/master/05.Governance-Risk-Compliance/exercise/exercise-policies/limitrange-policy.yaml](https://github.com/michaelkotelnikov/rhacm-workshop/blob/master/05.Governance-Risk-Compliance/exercise/exercise-policies/limitrange-policy.yaml). Change the default container limit from 512Mi to 1024Mi.
 7. Make sure that you commit, and push the change to your fork.
-8. Log into _local-cluster_. Make sure that the change in GitHub was applied to the LimitRange resource.
+8. Log into managed cluster. Make sure that the change in GitHub was applied to the LimitRange resource.
 
 ```
 <managed cluster> $ oc get limitrange webserver-limit-range -o yaml -n webserver-acm
