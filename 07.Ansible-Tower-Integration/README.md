@@ -52,7 +52,7 @@ The _Logger_ Ansible Role can be found at [logger role](ansible-playbooks/roles/
 
 In order to allow RHACM to access Ansible Tower you must set up a Namespace scoped secret for RHACM to use. RHACM uses the secret to authenticate against the Ansible Tower instance. The secret contains the Ansible Tower URL and Access Token.
 
-Before creating the secret itself, make sure the namespace that populates the secret exists by running the next command -
+Before creating the secret itself, make sure the namespace that populates the secret exists by running the next command on the **hub** cluster -
 
 ```
 <hub> $ oc create namespace mariadb
