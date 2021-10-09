@@ -28,7 +28,7 @@ spec:
               objectDefinition:
                 kind: Namespace
                 metadata:
-                  name: dangerous
+                  name: forbidden-namespace
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding

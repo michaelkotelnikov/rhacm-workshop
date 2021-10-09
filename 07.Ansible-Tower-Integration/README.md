@@ -252,11 +252,15 @@ Press **Next**. Review the information, and press on **Add**.
 
 ### Policy Automation - #1 - Delete Namespace if violation initiates
 
-In this example you will a policy that monitors whether a _forbidden namespace_ exists. If the namespace exists a violation will be initiated. Once the violation is initiated an Ansible Job Template will be triggered and remediate the violation using an Ansible role. A role has already been configured for this scenario at - [ansible-playbooks/roles/k8s-namespace](ansible-playbooks/roles/k8s-namespace).
+In this example you will create a policy that monitors whether a _forbidden namespace_ exists. If the namespace exists a violation will be initiated. Once the violation is initiated an Ansible Job Template will be triggered. The Ansible Job Template will remediate the violation using an Ansible role. A role has already been configured for this scenario at - [ansible-playbooks/roles/k8s-namespace](ansible-playbooks/roles/k8s-namespace).
 
 #### Configuring the Policy
 
-Create a Policy object based on what you have learned in the previous exercises. The Policy will initiate an alert if a namespace with the name `forbidden-namespace` is present in the cluster. Create the policy object in the `rhacm-policies` namespace. Make sure that the policy remediation action is set the _inform_. Policy examples can be found in the previous chapters of this training - (05.Governance-Risk-Compliance)[../05.Governance-Risk-Compliance].
+The next Policy will initiate an alert if a namespace with the name `forbidden-namespace` is present in the cluster. Apply the policy to the hub cluster -
+
+```
+<hub> $ 
+```
 
 After creating the policy, make sure that the policy works as expected. Create a namespace with the name `forbidden-namespace`, on `local-cluster`.
 
