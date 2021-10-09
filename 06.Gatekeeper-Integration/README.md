@@ -6,7 +6,7 @@ In this exercise you will go through the Compliance features that come with Open
 
 In this section you create and manage Gatekeeper policies. The policies are based on the REGO policy language.
 
-Apply the next policy to the hub cluster. The policy will install the Gatekeeper operator on the managed cluster.
+Apply the next policy to the hub cluster. The policy installs the Gatekeeper operator on the managed cluster.
 
 ```
 <hub> $ cat >> policy-gatekeeper-operator.yaml << EOF
@@ -240,7 +240,10 @@ EOF
 <hub> $ oc apply -f policy-gatekeeper-httpsonly.yaml
 ```
 
-Login to the managed cluster and try creating a web server using the next commands - 
+Wait until both policies are in a compliant state before you move forward with the exercise.
+
+Login to the managed cluster and try creating a web server using the next commands -
+
 ```
 <managed cluster> $ oc new-project httpd-test
 
@@ -269,10 +272,10 @@ Run the next command to deploy the Compliance Operator using an RHACM policy -
 <hub> $ oc apply -f https://raw.githubusercontent.com/michaelkotelnikov/rhacm-workshop/master/06.Gatekeeper-Integration/exercise-compliance-operator/policy-compliance-operator.yaml
 ```
 
-Make sure that the policy has been deployed successfully in RHACM's Governance dashboard - The policy status needs to be **compliant**. The Compliance Operator is deployed in the `openshift-compliance` namespace.
+Make sure that the policy has been deployed successfully in RHACM's Governance dashboard - The policy status needs to be **compliant**. The Compliance Operator is deployed in the `openshift-compliance` namespace on the managed cluster.
 
 ```
-<hub> $ oc get pods -n openshift-compliance
+<managed cluster> $ oc get pods -n openshift-compliance
 NAME                                                    READY   STATUS      RESTARTS   AGE
 compliance-operator-8c9bc7466-8h4js                     1/1     Running     1          7m27s
 ocp4-openshift-compliance-pp-6d7c7db4bd-wb5vf           1/1     Running     0          4m51s
@@ -285,10 +288,10 @@ Now that the Compliance Operator is deployed, initiate a compliance scan using a
 <hub> $ oc apply -f https://raw.githubusercontent.com/michaelkotelnikov/rhacm-workshop/master/06.Gatekeeper-Integration/exercise-compliance-operator/policy-moderate-scan.yaml
 ```
 
-After running the command, a compliance scan is initiated. The scan will take about 5 minutes to complete. Run the next command to check the status of the scan -
+After running the command, a compliance scan is initiated. The scan will take about 5 minutes to complete. Run the next command on the managed cluster to check the status of the scan -
 
 ```
-<hub> $ oc get compliancescan -n openshift-compliance
+<managed cluster> $ oc get compliancescan -n openshift-compliance
 NAME                     PHASE     RESULT
 ocp4-moderate            RUNNING   NOT-AVAILABLE
 rhcos4-moderate-master   RUNNING   NOT-AVAILABLE

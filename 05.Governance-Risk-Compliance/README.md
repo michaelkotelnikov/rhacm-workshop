@@ -368,6 +368,20 @@ Notice that if you list the LimitRange resource again, the value of the memory l
 ...
 ```
 
+## Policy #3 - Namespace management
+
+In this section, you will create a policy that `informs` if a namespace with the name `rhacm-dangerous-policy-namespace` is present. Make sure to create the policy in the `rhacm-policies` namespace You may use the workshop presentation and the policies you've created in this exercise as a reference for the creation of this policy.
+
+After deploying the policy, make sure that it is in a `compliant` state.
+
+Create a namespace with the `rhacm-dangerous-policy-namespace` name. Make sure that a violation is initiated.
+
+```
+<managed cluster> $ oc create namespace rhacm-dangerous-policy-namespace
+```
+
+Change the remediationAction in your policy to `enforce`. The violation should be remediated.
+
 ## Using GitOps
 
 In this section you will use RHACM’s built-in GitOps mechanism to manage your policies. You will deploy the above policies, and manage them in a GitOps friendly way.
