@@ -285,6 +285,21 @@ An example of a disallowed namespace:
 
 You make use the presentation and the previously created policies as a reference for this policy. Use the [rego playground](https://play.openpolicyagent.org/) to check the validity of your rego policy.
 
+Check the validity of your policy by creating a violating namespace. The creation of the namespace should be disallowed -
+
+```
+<managed cluster> $ cat >> gatekeeper-disallowed-namespace.yaml << EOF
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    state: dangerous
+  name: michael
+EOF
+
+<managed cluster> $ oc apply -f gatekeeper-disallowed-namespace.yaml
+```
+
 ## Compliance Operator Integration
 
 In this section you will perform an integration between Red Hat Advanced Cluster Management and the OpenSCAP Compliance Operator. You will create an RHACM policy that deploys the Compliance Operator. Afterwards, you will create an RHACM policy that initiates a compliance scan and monitors the results.
