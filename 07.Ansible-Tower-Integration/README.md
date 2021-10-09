@@ -262,10 +262,10 @@ The next Policy will initiate an alert if a namespace with the name `forbidden-n
 <hub> $ oc apply -f https://raw.githubusercontent.com/michaelkotelnikov/rhacm-workshop/master/07.Ansible-Tower-Integration/demo-policy/rhacm-resources/policy.yaml
 ```
 
-After creating the policy, make sure that the policy works as expected. Create a namespace with the name `forbidden-namespace`, on `local-cluster`.
+After creating the policy, make sure that the policy works as expected. Create a namespace with the name `forbidden-namespace`, on the managed cluster.
 
 ```
-<hub> $ oc create namespace forbidden-namespace
+<managed cluster> $ oc create namespace forbidden-namespace
 ```
 
  Make sure that a violation is initiated.
@@ -292,15 +292,14 @@ spec:
     secret: ansible-tower
     type: AnsibleJob
   mode: once
-  policyRef: <policy-name>
+  policyRef: policy-remove-dangerous-namespace
  ```
 
  Modify the PolicyAutomation object with parameters relevant to your cluster.
 
- - k8s_api_url refers to the API URL of your OpenShift / K8S cluster. e.g - 'https://api.cluster.sandbox.opentlc.com:6443'
- - k8s_password refers to the password you're going to use to authenticate to the OpenShift / K8S cluster.
- - k8s_username refers to the username you're going to use to authenticate to the OpenShift / K8S cluster.
- - policyRef refers to the Policy object that the PolicyAutomation is associated with.
+ - k8s_api_url refers to the API URL of your **managed** OpenShift / K8S cluster. e.g - 'https://api.cluster.sandbox.opentlc.com:6443'
+ - k8s_password refers to the password you're going to use to authenticate to the **managed** OpenShift / K8S cluster.
+ - k8s_username refers to the username you're going to use to authenticate to the **managed** OpenShift / K8S cluster.
 
  After modifying the parametes, create the PolicyAutomation object on the hub cluster in the `rhacm-policies` namespace.
 
