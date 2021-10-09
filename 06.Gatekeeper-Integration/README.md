@@ -266,7 +266,7 @@ Try exposing the web server using a secure route
 
 ### Policy #2 - Namespace Management
 
-In this section you will create a Gatekeeper based policy. The policy with disallow namespaces with the `state: dangerous` label. If a namespace has this label, its creation will be disallowed. Make sure to create a message that indicates the error.
+In this section you will create a Gatekeeper based policy. The policy will disallow namespaces with the `state: dangerous` label. If a namespace has this label, its creation will be disallowed. Make sure to create a message that indicates the error.
 
 An example of a disallowed namespace:
 
