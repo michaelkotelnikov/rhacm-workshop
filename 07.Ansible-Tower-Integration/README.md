@@ -58,7 +58,7 @@ Before creating the secret itself, make sure the namespace that populates the se
 <hub> $ oc create namespace mariadb
 ```
 
-To create the secret, navigate to **Credentials** -> **Red Hat Ansible Automation Platform** in the RHACM UI and fill the next fields -
+To create the secret, navigate to **Credentials** -> **Add credentials** -> **Red Hat Ansible Automation Platform** in the RHACM UI and fill the next fields -
 
 - Credentials name: **ansible-tower**
 - Namespace: **mariadb**
