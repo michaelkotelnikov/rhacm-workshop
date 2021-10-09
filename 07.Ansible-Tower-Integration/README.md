@@ -259,7 +259,7 @@ In this example you will create a policy that monitors whether a _forbidden name
 The next Policy will initiate an alert if a namespace with the name `forbidden-namespace` is present in the cluster. Apply the policy to the hub cluster -
 
 ```
-<hub> $ 
+<hub> $ oc apply -f https://raw.githubusercontent.com/michaelkotelnikov/rhacm-workshop/master/07.Ansible-Tower-Integration/demo-policy/rhacm-resources/policy.yaml
 ```
 
 After creating the policy, make sure that the policy works as expected. Create a namespace with the name `forbidden-namespace`, on `local-cluster`.
