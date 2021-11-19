@@ -5,16 +5,16 @@ In this exercise you manage the existing cluster on the Red Hat Advanced Cluster
 
 ## 2.1 Import an existing cluster
 
-1. Modify the attributes of the managed cluster in Red Hat Advanced Cluster Management. Use the [workshop’s presentation](https://docs.google.com/presentation/d/1jhsO7tSsFoNwYouF-iBnlw5kA7Nx0Hoi-4HK0fFP1YI/edit?usp=sharing) as a guideline to the process -
+1. Modify the attributes of the managed cluster in Red Hat Advanced Cluster Management -
 *   **Name**: local-cluster
 *   **labels**: 
     * environment=dev
     * owner=&lt;your-name>
     
-In order to associate the **environment=dev** label with local-cluster, follow the next steps -
+In order to associate the labels with local-cluster, follow the next steps -
 
 *   Navigate to **Cluster Lifecycle** -> **local-cluster** -> **Actions** -> **Edit labels**.
-*   Add the **environment=dev** label.
+*   Add the labels.
 
 2. Log into the cluster using the **oc** cli tool.
 
