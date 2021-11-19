@@ -125,7 +125,7 @@ EOF
 
 After the resources are created. In the RHACM portal, navigate to **Application Lifecycle** -> **&lt;application name>**. And make sure that the resources are created.
 
-Run the next command on the managed cluster, and navigate to the application's frontend at **https://&lt;route-url>/application.html** -
+Run the next command on the managed cluster and navigate to the application's frontend at **https://&lt;route-url>/application.html** -
 
 ```
 <managed> $ oc get route -n webserver-acm
