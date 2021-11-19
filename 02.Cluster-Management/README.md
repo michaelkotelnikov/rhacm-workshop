@@ -10,6 +10,12 @@ In this exercise you manage the existing cluster on the Red Hat Advanced Cluster
 *   **labels**: 
     * environment=dev
     * owner=&lt;your-name>
+    
+In order to associate the **environment=dev** label with local-cluster, follow the next steps -
+
+*   Navigate to **Cluster Lifecycle** -> **local-cluster** -> **Actions** -> **Edit labels**.
+*   Add the **environment=dev** label.
+
 2. Log into the cluster using the **oc** cli tool.
 
 ```
