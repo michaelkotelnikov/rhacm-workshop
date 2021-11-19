@@ -123,13 +123,15 @@ EOF
 <hub> $ oc apply -f application.yaml 
 ```
 
-After the resources are created. In the RHACM portal, navigate to **Application Lifecycle** -> **&lt;application name>**. And make sure that the resources are created.
+After the resources are created. In the RHACM portal, navigate to **Application Lifecycle** -> **&lt;application name>**. Make sure that the resources are created.
 
-Run the next command on the managed cluster and navigate to the application's frontend at **https://&lt;route-url>/application.html** -
+Run the next command on the managed cluster -
 
 ```
 <managed> $ oc get route -n webserver-acm
 ```
+
+Navigate to the application's frontend at **https://&lt;route-url>/application.html**
 
 Make sure that the application is running the **development version** on the cluster. Validate that the application is deployed by running the next command -
 
