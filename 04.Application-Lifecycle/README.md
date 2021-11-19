@@ -126,13 +126,14 @@ EOF
 After the resources are created. In the RHACM portal, navigate to **Application Lifecycle** -> **&lt;application name>**. And make sure that the resources are created.
 
 Click on the route resource, and navigate to the URL - **https://&lt;route-url>/application.html**.
-**Important** If the route definition is not present in the UI, you may run the next command on the managed cluster -
+
+**Important:** If the route definition is not present in the UI, you may run the next command on the managed cluster -
 
 ```
 <managed> $ oc get route -n webserver-acm
 ```
 
-Make sure that the application is running the **development version** on the cluster. Login into the cluster, and validate that the application runs there.
+Make sure that the application is running the **development version** on the cluster. Validate that the application is deployed by running the next command -
 
 ```
 <managed cluster> $ oc get pods -n webserver-acm
