@@ -135,8 +135,6 @@ Click on the route resource, and navigate to the URL - **https://&lt;route-url>/
 Make sure that the application is running the **development version** on the cluster. Login into the cluster, and validate that the application runs there.
 
 ```
-<managed cluster> $ oc login -u admin -p <password> https://api.cluster.2222.sandbox.opentlc.com:6443
-
 <managed cluster> $ oc get pods -n webserver-acm
 ```
 
