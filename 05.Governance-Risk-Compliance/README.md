@@ -336,12 +336,6 @@ Make sure that the managed cluster is compliant to the policy by navigating to *
 
 Make sure that the LimitRange object is created in your managed cluster -
 
-* Log into the managed cluster -
-
-```
-<managed cluster> $ oc login -u admin -p <password> https://api.cluster.2222.sandbox.opentlc.com:6443
-```
-
 * Validate that the LimitRange object is created in the webserver-acm namespace -
 
 ```
