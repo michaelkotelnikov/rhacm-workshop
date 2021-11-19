@@ -373,7 +373,7 @@ Create the GitOpsServer resource to indicate the location of ArgoCD and the plac
 ```
 <hub> $ cat >> gitopsserver.yaml << EOF
 ---
-apiVersion: apps.open-cluster-management.io/v1beta1
+apiVersion: apps.open-cluster-management.io/v1alpha1
 kind: GitOpsCluster
 metadata:
   name: gitops-cluster
