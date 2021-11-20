@@ -300,7 +300,7 @@ spec:
           namespaceSelector:
             include: ["webserver-acm"]
           object-templates:
-            - complianceType: musthave
+            - complianceType: mustonlyhave
               objectDefinition:
                 apiVersion: v1
                 kind: LimitRange # limit memory usage
