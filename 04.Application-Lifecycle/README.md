@@ -188,7 +188,7 @@ EOF
 <hub> $ oc apply -f subscription-production.yaml
 ```
 
-After creating the resources,  navigate to **Application Lifecycle** -> **webserver-app**. Note that the newly created Subscription does not deploy any resource on any of the clusters since there are no clusters with the **environment=production** label.
+After creating the resources,  navigate to **Application Lifecycle** -> **webserver-app**. On the left, at the `Subscription` slidebar, choose `All Subscriptions`. Note that the newly created Subscription does not deploy any resource on any of the clusters since there are no clusters with the **environment=production** label.
 
 ![application-dev](images/application-dev.png)
 
