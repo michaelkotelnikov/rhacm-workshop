@@ -19,7 +19,7 @@ In order to associate the labels with local-cluster, follow the next steps -
 2. Log into the cluster using the **oc** cli tool.
 
 ```
-<managed cluster> $ oc login -u admin -p <password> https://api.cluster.2222.sandbox.opentlc.com:6443
+<managed cluster> $ oc login -u <admin-user> -p <password> https://api.cluster.2222.sandbox.opentlc.com:6443
 ```
 
 3. Make sure that all of the agent pods are up and running on the cluster.
