@@ -404,13 +404,19 @@ Before you start this section of the exercise, make sure you delete the namespac
 <hub> $ cd policy-collection/deploy/
 ```
 
-4. You can now deploy the policies from your forked repository to the Advanced Cluster Management.
+4. Run the next command to allow your username deploy policies via Git (Make sure to change `your-username` with the user your using to run the coomand. Even if it's an administrative user!) -
+
+```
+<hub> $ oc patch clusterrolebinding.rbac open-cluster-management:subscription-admin -p '{"subjects": [{"apiGroup":"rbac.authorization.k8s.io", "kind":"User", "name":"<your-username>"}]}'
+```
+
+5. You can now deploy the policies from your forked repository to the Advanced Cluster Management.
 
 ```
 <hub> $ ./deploy.sh --url https://github.com/<your-username>/rhacm-workshop.git --branch master --path 05.Governance-Risk-Compliance/exercise/exercise-policies --namespace rhacm-policies
 ```
 
-5. Make sure that the policies are deployed in the **Governance Risk and Compliance** tab in the Advanced Cluster Management for Kubernetes console.
+6. Make sure that the policies are deployed in the **Governance Risk and Compliance** tab in the Advanced Cluster Management for Kubernetes console.
 
 ![policies-overview](images/policies-overview.png)
 
