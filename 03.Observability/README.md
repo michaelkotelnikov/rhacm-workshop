@@ -6,9 +6,11 @@ In this exercise you enable and use the `Observability` function in Red Hat Adva
 
 This part focuses on the `Observability` addon deployment. In order to deploy the functionality, you have to obtain an object storage provider. For this deployment you will use [minio](https://min.io/). A PVC will be assigned to a minio pod which will create a bucket and export an S3 object storage endpoint. The endpoint's information and credentials are exported in a secret with the `thanos-object-storage` name.
 
-To create a namespace for the `MCO operator` to run in, run the next command on the hub cluster -
+To create a namespace for the `MCO operator` to run in, run the next commands on the hub cluster -
 
 ```
+<hub> $ oc login -u <admin-user> -p <password> https://api.cluster.2222.sandbox.opentlc.com:6443
+
 <hub> $ oc new-project open-cluster-management-observability
 ```
 
