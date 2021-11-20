@@ -393,7 +393,7 @@ Before you start this section of the exercise, make sure you delete the namespac
 2. Afterwards, create a namespace on which you will deploy the RHACM resources (Use the namespace.yaml file in the forked repository) -
 
 ```
-<hub> $ oc apply -f https://raw.githubusercontent.com/<your-username>/rhacm-workshop/master/05.Governance-Risk-Compliance/exercise/namespace.yaml
+<hub> $ oc apply -f https://raw.githubusercontent.com/<your-github-username>/rhacm-workshop/master/05.Governance-Risk-Compliance/exercise/namespace.yaml
 ```
 
 3. Now, clone the official policy-collection GitHub repository to your machine. The repository contains a binary named **deploy.sh**. The binary is used to associate policies in a GitHub repository to a running Red Hat Advanced Cluster Management for Kubernetes cluster.
@@ -404,24 +404,64 @@ Before you start this section of the exercise, make sure you delete the namespac
 <hub> $ cd policy-collection/deploy/
 ```
 
-4. Run the next command to allow your username deploy policies via Git (Make sure to change `your-username` with the user your using to run the coomand. Even if it's an administrative user!) -
+4.a. If you are using the kubeadmin user, create an identity provider by running the next commands (It is not possible to create policies via GitOps using the kubeadmin user). The identity provider will create the `workshop-admin` user -
 
 ```
-<hub> $ oc patch clusterrolebinding.rbac open-cluster-management:subscription-admin -p '{"subjects": [{"apiGroup":"rbac.authorization.k8s.io", "kind":"User", "name":"<your-username>"}]}'
+<hub> $ htpasswd -c -B -b htpasswd workshop-admin redhat
+
+<hub> $ oc create secret generic localusers --from-file htpasswd=htpasswd -n openshift-config
+
+<hub> $ oc adm policy add-cluster-role-to-user cluster-admin workshop-admin
+
+<hub> $ oc get -o yaml oauth cluster > oauth.yaml
 ```
 
-5. You can now deploy the policies from your forked repository to the Advanced Cluster Management.
+4.b. Edit the `oauth.yaml` file. The result should look like -
 
 ```
-<hub> $ ./deploy.sh --url https://github.com/<your-username>/rhacm-workshop.git --branch master --path 05.Governance-Risk-Compliance/exercise/exercise-policies --namespace rhacm-policies
+apiVersion: config.openshift.io/v1
+kind: OAuth
+...output omitted...
+spec:
+  identityProviders:
+  - htpasswd:
+      fileData:
+        name: localusers
+    mappingMethod: claim
+    name: local-users
+    type: HTPasswd
 ```
 
-6. Make sure that the policies are deployed in the **Governance Risk and Compliance** tab in the Advanced Cluster Management for Kubernetes console.
+4.c. Replace the cluster's identity provder by running the next command -
+
+```
+<hub> $ oc replace -f oauth.yaml
+```
+
+4.d. Login with the created user -
+
+```
+<hub> $ oc login -u workshop-admin -p redhat
+```
+
+5. Run the next command to allow your username deploy policies via Git (If you're not using the `workshop-admin` user to run the command, make sure to change it with the user you are using. Even if it's an administrative user!) -
+
+```
+<hub> $ oc patch clusterrolebinding.rbac open-cluster-management:subscription-admin -p '{"subjects": [{"apiGroup":"rbac.authorization.k8s.io", "kind":"User", "name":"workshop-admin"}]}'
+```
+
+6. You can now deploy the policies from your forked repository to Advanced Cluster Management.
+
+```
+<hub> $ ./deploy.sh --url https://github.com/<your-github-username>/rhacm-workshop.git --branch master --path 05.Governance-Risk-Compliance/exercise/exercise-policies --namespace rhacm-policies
+```
+
+7. Make sure that the policies are deployed in the **Governance Risk and Compliance** tab in the Advanced Cluster Management for Kubernetes console.
 
 ![policies-overview](images/policies-overview.png)
 
 
-6. Edit the LimitRange policy in [https://github.com/&lt;your-username>/rhacm-workshop/blob/master/05.Governance-Risk-Compliance/exercise/exercise-policies/limitrange-policy.yaml](https://github.com/michaelkotelnikov/rhacm-workshop/blob/master/05.Governance-Risk-Compliance/exercise/exercise-policies/limitrange-policy.yaml). Change the default container limit from 512Mi to 1024Mi.
+8. Edit the LimitRange policy in [https://github.com/&lt;your-username>/rhacm-workshop/blob/master/05.Governance-Risk-Compliance/exercise/exercise-policies/limitrange-policy.yaml](https://github.com/michaelkotelnikov/rhacm-workshop/blob/master/05.Governance-Risk-Compliance/exercise/exercise-policies/limitrange-policy.yaml). Change the default container limit from 512Mi to 1024Mi.
 7. Make sure that you commit, and push the change to your fork.
 8. Log into managed cluster. Make sure that the change in GitHub was applied to the LimitRange resource.
 
