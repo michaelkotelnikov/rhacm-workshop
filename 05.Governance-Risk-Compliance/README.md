@@ -444,7 +444,7 @@ spec:
 <hub> $ oc login -u workshop-admin -p redhat
 ```
 
-5. Run the next command to allow your username deploy policies via Git (If you're not using the `workshop-admin` user to run the command, make sure to change it with the user you are using. Even if it's an administrative user!) -
+5. Run the next command to allow your username deploy policies via Git (If you're not using the `workshop-admin` user to run the command, make sure to edit the command in order to associate your user with the `subscription-admin` ClusterRole. Make sure to run the coomand even if you are using an administrative user!) -
 
 ```
 <hub> $ oc patch clusterrolebinding.rbac open-cluster-management:subscription-admin -p '{"subjects": [{"apiGroup":"rbac.authorization.k8s.io", "kind":"User", "name":"workshop-admin"}]}'
@@ -462,8 +462,10 @@ spec:
 
 
 8. Edit the LimitRange policy in [https://github.com/&lt;your-username>/rhacm-workshop/blob/master/05.Governance-Risk-Compliance/exercise/exercise-policies/limitrange-policy.yaml](https://github.com/michaelkotelnikov/rhacm-workshop/blob/master/05.Governance-Risk-Compliance/exercise/exercise-policies/limitrange-policy.yaml). Change the default container limit from 512Mi to 1024Mi.
-7. Make sure that you commit, and push the change to your fork.
-8. Log into managed cluster. Make sure that the change in GitHub was applied to the LimitRange resource.
+
+9. Make sure that you commit, and push the change to your fork.
+
+10. Log into managed cluster. Make sure that the change in GitHub was applied to the LimitRange resource.
 
 ```
 <managed cluster> $ oc get limitrange webserver-limit-range -o yaml -n webserver-acm
