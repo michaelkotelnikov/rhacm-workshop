@@ -111,10 +111,9 @@ In this part you will configure custom alerts to monitor your environment. By co
 
 #### 3.3.1 - Alert #1
 
-The first alert you will configure in the exercise will initiate a notification when a cluster's memory utilization reaches over 20%. In order to create the alert, create the next ConfigMap in the `open-cluster-management-observability` namespace (Make sure to go through the alert before applying it!). Run the next commands -
+The first alert you will configure in the exercise will initiate a notification when a cluster's memory utilization reaches over 20%. In order to create the alert, create the next ConfigMap in the `open-cluster-management-observability` namespace (Make sure to go through the alert before applying it!).
 
 ```
-<hub> $ cat >> custom-alert.yaml << EOF
 apiVersion: v1
 data:
   custom_rules.yaml: |
@@ -135,9 +134,6 @@ kind: ConfigMap
 metadata:
   name: thanos-ruler-custom-rules
   namespace: open-cluster-management-observability
-EOF
-
-<hub> $ oc apply -f custom-alert.yaml
 ```
 
 Now that the alert is configured, check whether the alert is initiated or not. To check the alert, navigate to the Grafana instance you've deployed in the previous task. In the Grafana instance, go to the 'Explore' dashboard (compass icon on the left slidebar). Before checking whether the alert is initiated or not, run the alert's query to check the memory utilization in the `local-cluster` cluster. Copy the next expression to the `query` tab, and press `SHIFT + ENTER` to run the query.
