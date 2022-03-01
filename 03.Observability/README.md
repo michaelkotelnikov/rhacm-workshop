@@ -215,8 +215,8 @@ The dashboard you design in this part will present a graph that aggregates all a
 - Press on `Add new panel` in order to create a custom graph.
 - Enter the next query in the `metrics` tab `node_memory_MemAvailable_bytes{cluster="local-cluster"}`.
 - Enter the next label into the `Legend` field - `{{ instance }}`.
-- In the right menu, scroll down to the `Axes` section. In `Left Y`, in the `Unit` section, select `Data` -> `bytes (IEC)`.
-- In the same menu, add `0` to the `Y-Min` key.
+- In the right menu, scroll down to the `Standard options` section. In the `Unit` section, select `Data` -> `bytes (IEC)`.
+- In the same menu, add `0` to the `Min` key.
 - In the top of the right menu, provide your panel with a name at - `Panel title`.
 - Press on `Apply` at the top right end of the screen.
 - You have created your first panel!
