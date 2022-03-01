@@ -293,13 +293,7 @@ NAME                      HOST/PORT                                  PATH   SERV
 openshift-gitops-server   openshift-gitops-server-openshift-gitops.<FQDN>   openshift-gitops-server   https   passthrough/Redirect   None
 ```
 
-Log into the ArgoCD instance with the `admin` username and its password. The password to the `admin` user can be found be running the next command -
-
-```
-<hub> $ oc extract secret/openshift-gitops-cluster --to=- -n openshift-gitops
-# admin.password
-<PASSWORD>
-```
+Log into the ArgoCD instance by pressing on `Log In via OpenShift`.
 
 Now that you have a running instance of ArgoCD, let's integrate it with RHACM!
 
