@@ -201,7 +201,7 @@ Make sure that the alert works as expected.
 
 In this section you will add your own dashboard to the default dashboards that come with MCO. 
 
-Before you can create a custom dashboard, you need to spin up an instance of a "Development Grafana" in which you'll design your dashboard. Follow the steps described in slides 63 and 64 in the [workshop's presentation](https://docs.google.com/presentation/d/1LCPvIT_nF5hwnrfYdlD0Zie4zdDxc0kxZtW3Io5jfFk/edit?usp=sharing) to create the development instance of Grafana.
+Before you can create a custom dashboard, you need to spin up an instance of a "Development Grafana" in which you'll design your dashboard. Follow the steps described in slides 84 and 85 in the [workshop's presentation](https://docs.google.com/presentation/d/1LCPvIT_nF5hwnrfYdlD0Zie4zdDxc0kxZtW3Io5jfFk/edit?usp=sharing) to create the development instance of Grafana.
 
 **NOTE** Make sure to log into the Grafana Dev instance with the wanted `admin` user before you run the `./switch-to-grafana-admin.sh` script!
 
@@ -245,6 +245,6 @@ ip-10-0-202-11.us-east-2.compute.internal    1754m        23%    8781Mi         
 
 Until now, you have worked on the "Development" Grafana instance. It's time to export the dashboard you've created to the main "Production" Grafana instance. Before you begin the export process, make sure to save your dashboard by pressing `CTRL + S`. Provide the dashboard with a simple, declerative name.
 
-To export the dashboard to the "Production" instance, follow the steps described in slides 65 and 66 in the [workshop's presentation](https://docs.google.com/presentation/d/1LCPvIT_nF5hwnrfYdlD0Zie4zdDxc0kxZtW3Io5jfFk/edit?usp=sharing).
+To export the dashboard to the "Production" instance, follow the steps described in slide 86 in the [workshop's presentation](https://docs.google.com/presentation/d/1LCPvIT_nF5hwnrfYdlD0Zie4zdDxc0kxZtW3Io5jfFk/edit?usp=sharing).
 
 Make sure that the dashboard is available in the Production Grafana instance in the 'Custom' directory.
