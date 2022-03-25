@@ -188,7 +188,7 @@ EOF
 <hub> $ oc apply -f subscription-production.yaml
 ```
 
-After creating the resources,  navigate to **Application Lifecycle** -> **webserver-app**. On the left, at the `Subscription` slidebar, choose `All Subscriptions`. Note that the newly created Subscription does not deploy any resource on any of the clusters since there are no clusters with the **environment=production** label.
+After creating the resources,  navigate to **Application Lifecycle** -> **webserver-app**. On the left, at the `Subscription` sidebar, choose `All Subscriptions`. Note that the newly created Subscription does not deploy any resource on any of the clusters since there are no clusters with the **environment=production** label.
 
 ![application-dev](images/application-dev.png)
 
@@ -315,7 +315,7 @@ EOF
 <hub> $ oc apply -f managedclusterset.yaml
 ```
 
-Now, import `local-cluster` into the ManagedClusterSet reosurce. Importation will be done by adding the `cluster.open-cluster-management.io/clusterset: all-clusters` label to the `local-cluster` ManagedCluster resource -
+Now, import `local-cluster` into the ManagedClusterSet resource. Importation will be done by adding the `cluster.open-cluster-management.io/clusterset: all-clusters` label to the `local-cluster` ManagedCluster resource -
 
 ```
 <hub> $ oc edit managedcluster local-cluster
@@ -391,9 +391,9 @@ Make sure that `local cluster` is imported into ArgoCD. In ArgoCD's web UI, on t
 
 ## Deploying an ApplicationSet using ArgoCD
 
-Now that you integrated ArgoCD with RHACM, let's deploy an ApplicationSet resource using ArgoCD. The applications you're going to create in this part are based on the same applications you have created in the begnining of the exercise - One web server application for a development environment and one for a production environment.
+Now that you integrated ArgoCD with RHACM, let's deploy an ApplicationSet resource using ArgoCD. The applications you're going to create in this part are based on the same applications you have created in the beginning of the exercise - One web server application for a development environment and one for a production environment.
 
-The applications are based on one [helm](https://helm.sh/) chart. Each application in the set is identified by its own unique `values.yaml` file. The applications are using the same baseline kubernetes resources at - [exercise-argocd/application-resources/templates](exercise-argocd/application-resources/templates), but they are using different `values` files at - [exercise-argocd/application-resources/values](exercise-argocd/application-resources/values). Each instance of the application uses a seperate values set. The ApplicationSet resource itterates over the directories in the [exercise-argocd/application-resources/values](exercise-argocd/application-resources/values) directory and creates an instance of an application for each directory name.
+The applications are based on one [helm](https://helm.sh/) chart. Each application in the set is identified by its own unique `values.yaml` file. The applications are using the same baseline kubernetes resources at - [exercise-argocd/application-resources/templates](exercise-argocd/application-resources/templates), but they are using different `values` files at - [exercise-argocd/application-resources/values](exercise-argocd/application-resources/values). Each instance of the application uses a separate values set. The ApplicationSet resource iterates over the directories in the [exercise-argocd/application-resources/values](exercise-argocd/application-resources/values) directory and creates an instance of an application for each directory name.
 
 To create the ApplicationSet resource run the next commands -
 
@@ -407,7 +407,7 @@ Note that two application instances have been created in the ArgoCD UI -
 
 ![argocd-applications](images/argocd-applications.png)
 
-After viewing the applications and their resources in the ArgoCD dashboard, log into RHACM's web console, and nacigate to **Applications**. Note that RHACM identifies the deployed ApplicaitonSet and provides an entry for both applications -
+After viewing the applications and their resources in the ArgoCD dashboard, log into RHACM's web console, and navigate to **Applications**. Note that RHACM identifies the deployed ApplicationSet and provides an entry for both applications -
 
 ![argocd-rhacm-applications](images/argocd-rhacm-applications.png)
 
