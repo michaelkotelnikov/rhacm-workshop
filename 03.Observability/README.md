@@ -96,14 +96,14 @@ Now, that all pods are running, log into RHACM's dashboard and navigate to **Clu
 
 ### 3.2 - Explore the default Grafana dashboards
 
-This part focuses on the default Grafana dashboards that come with RHACM. Each dashboard has its own characteristics and provides valueable information to a system administrator in the organization. This section contains multiple tasks that require you to look for certain values in the default dashboards that come with `MCO`.
+This part focuses on the default Grafana dashboards that come with RHACM. Each dashboard has its own characteristics and provides valuable information to a system administrator in the organization. This section contains multiple tasks that require you to look for certain values in the default dashboards that come with `MCO`.
 
 - Find the maximum latency value for the `local-cluster` API server.
 - Find out how much % of `local-cluster`'s memory is utilized.
 - Find what is the size of the etcd database in `local-cluster`.
 - Find the namespace that consumes the most CPU in `local-cluster`.
 - Find what's the node in `local-cluster` that consumes the most % memory.
-- Find what's the `apiserver` (openshift-apiserver namespace) pod CPU utulization and quota.
+- Find what's the `apiserver` (openshift-apiserver namespace) pod CPU utilization and quota.
 
 ### 3.3 - Creating a custom alert
 
@@ -136,7 +136,7 @@ metadata:
   namespace: open-cluster-management-observability
 ```
 
-Now that the alert is configured, check whether the alert is initiated or not. To check the alert, navigate to the Grafana instance you've deployed in the previous task. In the Grafana instance, go to the 'Explore' dashboard (compass icon on the left slidebar). Before checking whether the alert is initiated or not, run the alert's query to check the memory utilization in the `local-cluster` cluster. Copy the next expression to the `query` tab, and press `SHIFT + ENTER` to run the query.
+Now that the alert is configured, check whether the alert is initiated or not. To check the alert, navigate to the Grafana instance you've deployed in the previous task. In the Grafana instance, go to the 'Explore' dashboard (compass icon on the left sidebar). Before checking whether the alert is initiated or not, run the alert's query to check the memory utilization in the `local-cluster` cluster. Copy the next expression to the `query` tab, and press `SHIFT + ENTER` to run the query.
 
 ```
 1 - sum(:node_memory_MemAvailable_bytes:sum) by (cluster) / sum(kube_node_status_allocatable{resource="memory"}) by (cluster)
@@ -199,7 +199,7 @@ Make sure that the alert works as expected.
 
 ### 3.4 - Creating a custom dashboard
 
-In this section you will add your own dashboard to the default dashboards that come with MCO. 
+In this section you will add your own dashboard to the default dashboards that come with MCO.
 
 Before you can create a custom dashboard, you need to spin up an instance of a "Development Grafana" in which you'll design your dashboard. Follow the steps described in slides 84 and 85 in the [workshop's presentation](https://docs.google.com/presentation/d/1LCPvIT_nF5hwnrfYdlD0Zie4zdDxc0kxZtW3Io5jfFk/edit?usp=sharing) to create the development instance of Grafana.
 
@@ -211,7 +211,7 @@ Before you can create a custom dashboard, you need to spin up an instance of a "
 The dashboard you design in this part will present a graph that aggregates all available nodes in all clusters and show their available memory over a defined time period. In order to configure that dashboard, follow the next steps -
 
 - Log into the development instance.
-- Press on the large `+` on the left slidebar, select `Dashboard`. 
+- Press on the large `+` on the left sidebar, select `Dashboard`.
 - Press on `Add new panel` in order to create a custom graph.
 - Enter the next query in the `metrics` tab `node_memory_MemAvailable_bytes{cluster="local-cluster"}`.
 - Enter the next label into the `Legend` field - `{{ instance }}`.
@@ -243,7 +243,7 @@ ip-10-0-202-11.us-east-2.compute.internal    1754m        23%    8781Mi         
 
 #### 3.4.3 - Export the dashboard to the main Grafana instance
 
-Until now, you have worked on the "Development" Grafana instance. It's time to export the dashboard you've created to the main "Production" Grafana instance. Before you begin the export process, make sure to save your dashboard by pressing `CTRL + S`. Provide the dashboard with a simple, declerative name.
+Until now, you have worked on the "Development" Grafana instance. It's time to export the dashboard you've created to the main "Production" Grafana instance. Before you begin the export process, make sure to save your dashboard by pressing `CTRL + S`. Provide the dashboard with a simple, declarative name.
 
 To export the dashboard to the "Production" instance, follow the steps described in slide 86 in the [workshop's presentation](https://docs.google.com/presentation/d/1LCPvIT_nF5hwnrfYdlD0Zie4zdDxc0kxZtW3Io5jfFk/edit?usp=sharing).
 
