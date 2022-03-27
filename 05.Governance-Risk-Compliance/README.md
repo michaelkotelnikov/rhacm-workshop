@@ -135,6 +135,11 @@ After the creation of the objects, navigate to **Governance Risk and Compliance*
 
 Make sure that the policy is effective by trying to navigate to the application once again - **https://&lt;webserver application route>/application.html**. (The application should not be accessible).
 
+In order to understand the difference between the various _complianceType_ values you can consult [https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.4/html-single/governance/index#configuration-policy-yaml-table](https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.4/html-single/governance/index#configuration-policy-yaml-table):
+ * `musthave` will enforce the object and a subset of the fields
+ * `mustonlyhave` will enforce the object with name and all of its fields
+ * `mustnothave` will enforce that an object with the same name or labels must not exist
+
 ### Stage 2 - Allow traffic from the Ingress Controller
 
 In this section, you will modify the policy you have created in the previous section. You will add another ObjectDefinition entry to the policy. The ObjectDefinition will apply a second NetworkPolicy object onto the webserver-acm namespace in the managed cluster. The NetworkPolicy object will allow traffic from the Ingress Controller to reach the webserver application in port 8080. An example definition of the NetworkPolicy object -
