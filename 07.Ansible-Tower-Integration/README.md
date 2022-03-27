@@ -96,7 +96,7 @@ Wed Sep 29 16:21:19 UTC 2021 Ansible Job was triggered by mariadb as posthook in
 
 Note that the posthook executed ~1 min after the prehook.
 
-Run the next commands to see more information about the executed AnsibleJobs. Each AnsibleJob instance has valubale information for troubleshooting and diagnostics -
+Run the next commands to see more information about the executed AnsibleJobs. Each AnsibleJob instance has valuable information for troubleshooting and diagnostics -
 
 ```
 <hub> $ oc get ansiblejob -n mariadb
@@ -231,7 +231,7 @@ In this section, you will configure Ansible Tower Jobs to run as a violation is 
 
 ### Setting up Authentication
 
-In order to allow RHACM to access Ansible Tower you must set up a **Namespace scoped** secret for RHACM to use. A secret must be created for each namespace that interacts with Ansible Tower. Therefore, you must create the secret in the namespace that containts the policies as well.
+In order to allow RHACM to access Ansible Tower you must set up a **Namespace scoped** secret for RHACM to use. A secret must be created for each namespace that interacts with Ansible Tower. Therefore, you must create the secret in the namespace that contains the policies as well.
 
 Before creating the secret itself, make sure the namespace that populates the secret exists by running the next command -
 
@@ -301,7 +301,7 @@ spec:
  - k8s_password refers to the password you're going to use to authenticate to the **managed** OpenShift / K8S cluster.
  - k8s_username refers to the username you're going to use to authenticate to the **managed** OpenShift / K8S cluster.
 
- After modifying the parametes, create the PolicyAutomation object on the hub cluster in the `rhacm-policies` namespace.
+ After modifying the parameters, create the PolicyAutomation object on the hub cluster in the `rhacm-policies` namespace.
 
  Note that as soon as you create the PolicyAutomatiob object, an AnsibleJob object is created in the `rhacm-policies` namespace. The AnsibleJob marks that the Ansible Job Template on Ansible Tower has been initiated.
 

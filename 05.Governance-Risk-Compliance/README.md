@@ -2,7 +2,7 @@
 
 In this exercise you will go through the Compliance features that come with Red Hat Advanced Cluster Management for Kubernetes. You will apply a number of policies to the cluster in order to comply with global security and management standards.
 
-**NOTE!** The exercies depends on the ACM application deployed in the previous exercise (NOT the application deployed using ArgoCD). If the application is not available in your environment, run the next command to deploy it -
+**NOTE!** The exercise depends on the ACM application deployed in the previous exercise (NOT the application deployed using ArgoCD). If the application is not available in your environment, run the next command to deploy it -
 
 ```
 <hub> $ oc apply -f https://raw.githubusercontent.com/michaelkotelnikov/rhacm-workshop/master/04.Application-Lifecycle/exercise-application/rhacm-resources/application.yaml
@@ -432,7 +432,7 @@ spec:
     type: HTPasswd
 ```
 
-4.c. Replace the cluster's identity provder by running the next command -
+4.c. Replace the cluster's identity provider by running the next command -
 
 ```
 <hub> $ oc replace -f oauth.yaml
