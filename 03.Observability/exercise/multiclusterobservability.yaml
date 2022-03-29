@@ -1,4 +1,4 @@
-apiVersion: observability.open-cluster-management.io/v1beta1
+apiVersion: observability.open-cluster-management.io/v1beta2
 kind: MultiClusterObservability
 metadata:
   name: observability #Your customized name of MulticlusterObservability CR
@@ -12,7 +12,7 @@ spec:
   retentionResolution1h: 30d # How long to retain samples of 1 hour in bucket
   retentionResolution5m: 14d
   retentionResolutionRaw: 5d
-  storageConfigObject: # Specifies the storage to be used by Observability
+  storageConfig: # Specifies the storage to be used by Observability
     metricObjectStorage:
       name: thanos-object-storage
       key: thanos.yaml
