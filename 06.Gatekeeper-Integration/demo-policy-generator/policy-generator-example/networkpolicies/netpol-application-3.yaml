@@ -1,0 +1,11 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: stackrox-generated-webserver
+  namespace: application-3
+spec:
+  podSelector:
+    matchLabels:
+      app: webserver
+  policyTypes:
+  - Ingress

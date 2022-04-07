@@ -1,0 +1,15 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: policy-network-management
+policyDefaults:
+  namespace: default
+policies:
+  - name: network-policy-management
+    manifests:
+      - path: networkpolicies
+    remediationAction: enforce
+    placement:
+      clusterSelector:
+        matchExpressions:
+          - {key: environment, operator: In, values: ["dev"]}
