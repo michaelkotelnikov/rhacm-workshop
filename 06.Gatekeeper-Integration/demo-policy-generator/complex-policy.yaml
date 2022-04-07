@@ -1,0 +1,156 @@
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-networkpolicy
+  namespace: rhacm-policies
+  annotations:
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/categories: SC System and Communications Protection
+    policy.open-cluster-management.io/controls: SC-7 Boundary Protection
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-networkpolicy-application-1
+        spec:
+          remediationAction: enforce
+          severity: medium
+          namespaceSelector:
+            include: ["default"]
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: networking.k8s.io/v1
+                kind: NetworkPolicy
+                metadata:
+                  labels:
+                    network-policy-generator.stackrox.io/generated: "true"
+                  name: stackrox-generated-webserver
+                  namespace: application-1
+                spec:
+                  podSelector:
+                    matchLabels:
+                      app: webserver
+                  policyTypes:
+                  - Ingress
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-networkpolicy-application-2
+        spec:
+          remediationAction: enforce
+          severity: medium
+          namespaceSelector:
+            include: ["default"]
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: networking.k8s.io/v1
+                kind: NetworkPolicy
+                metadata:
+                  labels:
+                    network-policy-generator.stackrox.io/generated: "true"
+                  name: stackrox-generated-webserver
+                  namespace: application-2
+                spec:
+                  ingress:
+                  - from:
+                    - namespaceSelector:
+                        matchLabels:
+                          kubernetes.io/metadata.name: application-1
+                      podSelector:
+                        matchLabels:
+                          app: webserver
+                    ports:
+                    - port: 8080
+                      protocol: TCP
+                  podSelector:
+                    matchLabels:
+                      app: webserver
+                  policyTypes:
+                  - Ingress
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-networkpolicy-application-3
+        spec:
+          remediationAction: enforce
+          severity: medium
+          namespaceSelector:
+            include: ["default"]
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: networking.k8s.io/v1
+                kind: NetworkPolicy
+                metadata:
+                  labels:
+                    network-policy-generator.stackrox.io/generated: "true"
+                  name: stackrox-generated-webserver
+                  namespace: application-3
+                spec:
+                  podSelector:
+                    matchLabels:
+                      app: webserver
+                  policyTypes:
+                  - Ingress
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-networkpolicy-application-4
+        spec:
+          remediationAction: enforce
+          severity: medium
+          namespaceSelector:
+            include: ["default"]
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: networking.k8s.io/v1
+                kind: NetworkPolicy
+                metadata:
+                  labels:
+                    network-policy-generator.stackrox.io/generated: "true"
+                  name: stackrox-generated-webserver
+                  namespace: application-4
+                spec:
+                  podSelector:
+                    matchLabels:
+                      app: webserver
+                  policyTypes:
+                  - Ingress
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: policy-networkpolicy-binding
+  namespace: rhacm-policies
+placementRef:
+  name: placement-policy-networkpolicy
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+  - name: policy-networkpolicy
+    kind: Policy
+    apiGroup: policy.open-cluster-management.io
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: placement-policy-networkpolicy
+  namespace: rhacm-policies
+spec:
+  clusterConditions:
+  - status: "True"
+    type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchExpressions:
+      - {key: environment, operator: In, values: ["dev"]}
