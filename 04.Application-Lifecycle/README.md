@@ -332,7 +332,7 @@ Create the ManagedClusterSetBinding resource to bind the `local-cluster` Managed
 ```
 <hub> $ cat >> managedclustersetbinding.yaml << EOF
 ---
-apiVersion: cluster.open-cluster-management.io/v1alpha1
+apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: ManagedClusterSetBinding
 metadata:
   name: all-clusters
