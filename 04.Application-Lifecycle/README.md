@@ -306,7 +306,7 @@ Create the next ManagedClusterSet resource. The ManagedClusterSet resource will 
 ```
 <hub> $ cat >> managedclusterset.yaml << EOF
 ---
-apiVersion: cluster.open-cluster-management.io/v1alpha1
+apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: ManagedClusterSet
 metadata:
   name: all-clusters
