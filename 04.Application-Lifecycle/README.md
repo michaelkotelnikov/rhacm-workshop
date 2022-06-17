@@ -123,7 +123,7 @@ EOF
 <hub> $ oc apply -f application.yaml 
 ```
 
-After the resources are created. In the RHACM portal, navigate to **Application Lifecycle** -> **&lt;application name>**. Make sure that the resources are created.
+After the resources are created. In the RHACM portal, navigate to **Applications** -> **&lt;application name>**. Make sure that the resources are created.
 
 Run the next command on the managed cluster -
 
@@ -188,17 +188,17 @@ EOF
 <hub> $ oc apply -f subscription-production.yaml
 ```
 
-After creating the resources,  navigate to **Application Lifecycle** -> **webserver-app**. On the left, at the `Subscription` sidebar, choose `All Subscriptions`. Note that the newly created Subscription does not deploy any resource on any of the clusters since there are no clusters with the **environment=production** label.
+After creating the resources,  navigate to **Applications** -> **webserver-app**. On the left, at the `Subscription` sidebar, choose `All Subscriptions`. Note that the newly created Subscription does not deploy any resource on any of the clusters since there are no clusters with the **environment=production** label.
 
 ![application-dev](images/application-dev.png)
 
 In order to deploy the production application on **local-cluster** -
 
-*   navigate to **Cluster Lifecycle** -> **local-cluster** -> **Actions** -> **Edit labels**.
+*   navigate to **Clusters** -> **local-cluster** -> **Actions** -> **Edit labels**.
 *   Remove the **environment=dev** label.
 *   Add the **environment=production** label.
 
-Wait for about 2 minutes for the application to redeploy on **local-cluster**, and navigate to **Application Lifecycle** -> **webserver-app**.
+Wait for about 2 minutes for the application to redeploy on **local-cluster**, and navigate to **Applications** -> **webserver-app**.
 
 Note that the application is now deployed at its “production” version on **local-cluster**.
 
