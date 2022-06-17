@@ -11,10 +11,10 @@ In this exercise you manage the existing cluster on the Red Hat Advanced Cluster
     * environment=dev
     * owner=&lt;your-name>
     
-In order to associate the labels with local-cluster, follow the next steps -
+In order to associate the labels with local-cluster, follow the next steps (You may use the presentation for guidance) -
 
-*   Navigate to **Cluster Lifecycle** -> **local-cluster** -> **Actions** -> **Edit labels**.
-*   Add the labels.
+*   Navigate to **Clusters** -> **local-cluster** -> **Actions** -> **Edit labels**.
+*   Add the labels in the `key=value` format.
 
 2. Log into the cluster using the **oc** cli tool.
 
@@ -36,20 +36,18 @@ klusterlet-work-agent-6b8b99b899-95dkr       	1/1 	Running   1      	46m
 klusterlet-work-agent-6b8b99b899-vdp9r       	1/1 	Running   0      	46m
 
 <managed cluster> $ oc get pods -n open-cluster-management-agent-addon
-NAME                                                  READY   STATUS RESTARTS   AGE
-klusterlet-addon-appmgr-64695b8d7b-q7jdg               2/2 	Running   0      	44m
-klusterlet-addon-certpolicyctrl-75df48646-j5zpc        2/2 	Running   0      	44m
-klusterlet-addon-iampolicyctrl-6867d45954-xv9c2        2/2 	Running   0      	44m
-klusterlet-addon-operator-f85df9c7f-lb2cq              1/1 	Running   0      	45m
-klusterlet-addon-policyctrl-config-policy-6fd8d88f5-chjls 1/1 	Running   0  44m
-klusterlet-addon-policyctrl-framework-7544f4678-kwbz9  4/4 	Running   0      	44m
-klusterlet-addon-search-7b697f899f-5vqwl               2/2 	Running   0      	44m
-klusterlet-addon-workmgr-7f48869cd6-mqq8g               2/2 	Running   0      	44m
+NAME                                           READY   STATUS    RESTARTS   AGE
+application-manager-7c8879d57f-4x7ft           1/1     Running   0          24m
+cert-policy-controller-7584887cdf-2vkv5        1/1     Running   0          24m
+config-policy-controller-56d8d84c8c-p8z72      1/1     Running   0          24m
+governance-policy-framework-65c46c46c8-xtgfq   2/2     Running   0          24m
+iam-policy-controller-56b5bf6486-795wd         1/1     Running   0          24m
+klusterlet-addon-workmgr-55bc5d4fd-2jp55       1/1     Running   0          24m
 ```
 
 ## 2.2 Analyzing the managed cluster
 
-In this exercise you will be using the Red Hat Advanced Cluster Management portal to analyze the managed cluster’s resources.
+In this exercise you will be using the Red Hat Advanced Cluster Management portal to analyze the managed cluster’s resources. You may use the workshop presentation for examples and guidance.
 
 1. Using Red Hat Advanced Cluster Management, find out what is the cloud provider of the managed cluster.
 2. Using Red Hat Advanced Cluster Management, find out the number of nodes that make up the managed cluster. How many CPUs does each node have?
