@@ -4,4 +4,4 @@ data:
     <h1>Development Application</h1>
 kind: ConfigMap
 metadata:
-  name: application-prod
+  name: application-dev
