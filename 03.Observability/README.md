@@ -92,7 +92,7 @@ endpoint-observability-operator-764b6c666-9s7nz   1/1     Running   0          2
 metrics-collector-deployment-765946868-hmk5d      1/1     Running   0          2d1h
 ```
 
-Now, that all pods are running, log into RHACM's dashboard and navigate to **Cluster Lifecycle** -> **Grafana (top right side)**. Make sure that the dashboards are available and graphs are present.
+Now, that all pods are running, log into RHACM's dashboard and navigate to **Clusters** -> **Grafana (top right side)**. Make sure that the dashboards are available and graphs are present.
 
 ### 3.2 - Explore the default Grafana dashboards
 
@@ -201,7 +201,7 @@ Make sure that the alert works as expected.
 
 In this section you will add your own dashboard to the default dashboards that come with MCO.
 
-Before you can create a custom dashboard, you need to spin up an instance of a "Development Grafana" in which you'll design your dashboard. Follow the steps described in slides 84 and 85 in the [workshop's presentation](https://docs.google.com/presentation/d/1LCPvIT_nF5hwnrfYdlD0Zie4zdDxc0kxZtW3Io5jfFk/edit?usp=sharing) to create the development instance of Grafana.
+Before you can create a custom dashboard, you need to spin up an instance of a "Development Grafana" in which you'll design your dashboard. Follow the steps described in slides 85 and 86 in the [workshop's presentation](https://docs.google.com/presentation/d/1LCPvIT_nF5hwnrfYdlD0Zie4zdDxc0kxZtW3Io5jfFk/edit?usp=sharing) to create the development instance of Grafana.
 
 **NOTE** Make sure to log into the Grafana Dev instance with the wanted `admin` user before you run the `./switch-to-grafana-admin.sh` script!
 
@@ -212,8 +212,8 @@ The dashboard you design in this part will present a graph that aggregates all a
 
 - Log into the development instance.
 - Press on the large `+` on the left sidebar, select `Dashboard`.
-- Press on `Add new panel` in order to create a custom graph.
-- Enter the next query in the `metrics` tab `node_memory_MemAvailable_bytes{cluster="local-cluster"}`.
+- A panel will appear in the new dashboard. Press on `Add an empty panel` in order to create a custom graph.
+- Enter the next query in the `Metrics browser` tab - `node_memory_MemAvailable_bytes{cluster="local-cluster"}`.
 - Enter the next label into the `Legend` field - `{{ instance }}`.
 - In the right menu, scroll down to the `Standard options` section. In the `Unit` section, select `Data` -> `bytes (IEC)`.
 - In the same menu, add `0` to the `Min` key.
@@ -245,6 +245,6 @@ ip-10-0-202-11.us-east-2.compute.internal    1754m        23%    8781Mi         
 
 Until now, you have worked on the "Development" Grafana instance. It's time to export the dashboard you've created to the main "Production" Grafana instance. Before you begin the export process, make sure to save your dashboard by pressing `CTRL + S`. Provide the dashboard with a simple, declarative name.
 
-To export the dashboard to the "Production" instance, follow the steps described in slide 86 in the [workshop's presentation](https://docs.google.com/presentation/d/1LCPvIT_nF5hwnrfYdlD0Zie4zdDxc0kxZtW3Io5jfFk/edit?usp=sharing).
+To export the dashboard to the "Production" instance, follow the steps described in slides 87,88 in the [workshop's presentation](https://docs.google.com/presentation/d/1LCPvIT_nF5hwnrfYdlD0Zie4zdDxc0kxZtW3Io5jfFk/edit?usp=sharing).
 
 Make sure that the dashboard is available in the Production Grafana instance in the 'Custom' directory.
