@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: apache
-          image: quay.io/bitnami/apache:2.4.46
+          image: docker.io/bitnami/apache:2.4.46
           ports:
             - containerPort: 8080
               name: webserver
