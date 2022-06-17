@@ -4,7 +4,7 @@ metadata:
   annotations:
   labels:
     app: webserver
-  name: webserver
+  name: webserver-dev
 spec:
   path: "/application.html"
   port:
