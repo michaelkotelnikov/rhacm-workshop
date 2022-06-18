@@ -96,6 +96,7 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
   name: binding-policy-gatekeeper-disallow-nodeport
+  namespace: rhacm-policies
 placementRef:
   name: placement-policy-gatekeeper-disallow-nodeport
   kind: PlacementRule
@@ -109,6 +110,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: placement-policy-gatekeeper-disallow-nodeport
+  namespace: rhacm-policies
 spec:
   clusterConditions:
     - status: "True"
