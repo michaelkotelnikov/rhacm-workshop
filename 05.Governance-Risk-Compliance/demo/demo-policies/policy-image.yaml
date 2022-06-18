@@ -28,7 +28,6 @@ spec:
                   name: container-security-operator
                   namespace: openshift-operators
                 spec:
-                  channel: quay-v3.3
                   installPlanApproval: Automatic
                   name: container-security-operator
                   source: redhat-operators
