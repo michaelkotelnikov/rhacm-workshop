@@ -131,7 +131,7 @@ The above command creates two objects _Policy_ and _PlacementBinding_.
 * The _Policy_ objects define the NetworkPolicy that will be deployed on the managed cluster. It associates the NetworkPolicy to the webserver-acm namespace, and enforces it.
 * The _PlacementRule_ resource associates the _Policy_ object with the _PlacementRule _resource that was created in the beginning of the exercise. Thereby, allowing the Policy to apply to all clusters with the _environment=production_ label.
 
-After the creation of the objects, navigate to **Governance Risk and Compliance** in the Red Hat Advanced Cluster Management for Kubernetes console. Note that the policy is configured, and the managed cluster is compliant.
+After the creation of the objects, navigate to **Governance** -> **Policies** in the Red Hat Advanced Cluster Management for Kubernetes console. Note that the policy is configured, and the managed cluster is compliant.
 
 Make sure that the policy is effective by trying to navigate to the application once again - **https://&lt;webserver application route>/application.html**. (The application should not be accessible).
 
@@ -251,7 +251,7 @@ EOF
 
 After applying the above policy, the application will be reachable from OpenShift’s ingress controller only. Any other traffic will be dropped.
 
-Make sure that the managed cluster is compliant to the policy by navigating to **Governance Risk and Compliance** in the Red Hat Advanced Cluster Management for Kubernetes console.
+Make sure that the managed cluster is compliant to the policy by navigating to **Governance** -> **Policies** in the Red Hat Advanced Cluster Management for Kubernetes console.
 
 ![networkpolicy-status](images/networkpolicy-status.png)
 
@@ -337,7 +337,7 @@ EOF
 <hub> $ oc apply -f limitrange-policy.yaml
 ```
 
-Make sure that the managed cluster is compliant to the policy by navigating to **Governance Risk and Compliance** in the Red Hat Advanced Cluster Management for Kubernetes console.
+Make sure that the managed cluster is compliant to the policy by navigating to **Governance** -> **Policies** in the Red Hat Advanced Cluster Management for Kubernetes console.
 
 Make sure that the LimitRange object is created in your managed cluster -
 
@@ -461,7 +461,7 @@ spec:
 <hub> $ ./deploy.sh --url https://github.com/<your-github-username>/rhacm-workshop.git --branch master --path 05.Governance-Risk-Compliance/exercise/exercise-policies --namespace rhacm-policies
 ```
 
-7. Make sure that the policies are deployed in the **Governance Risk and Compliance** tab in the Advanced Cluster Management for Kubernetes console.
+7. Make sure that the policies are deployed in the **Governance** -> **Policies** tab in the Advanced Cluster Management for Kubernetes console.
 
 ![policies-overview](images/policies-overview.png)
 
