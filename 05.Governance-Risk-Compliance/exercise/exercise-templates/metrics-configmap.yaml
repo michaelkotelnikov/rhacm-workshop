@@ -32,7 +32,7 @@ spec:
                 name: metrics-connection-string
                 namespace: mariadb-metrics
               data:
-                connection_string: 'root:{{ fromSecret "mariadb-metrics" "mariadb" "MYSQL_ROOT_PASSWORD"}}@({{ (lookup "v1" "Service" "mariadb-metrics" "mariadb").spec.clusterIP }}:3306)/'
+                connection_string: 'root:{{ ( fromSecret "mariadb-metrics" "mariadb" "MYSQL_ROOT_PASSWORD" ) | base64dec }}@({{ (lookup "v1" "Service" "mariadb-metrics" "mariadb").spec.clusterIP }}:3306)/'
           remediationAction: enforce
           severity: low
 ---
