@@ -10,27 +10,35 @@ The instructor will provide you with -
 
 ## Before You Begin
 
-In this section you will create the basic integration between RHACM and Ansible Tower. The integration is based on `Ansible Automation Platform Resource Operator`. Make sure to install the operator before you begin the next exercises.
+In this section you will create the basic integration between RHACM and Ansible Tower. The integration is based on `Ansible Automation Platform Operator`. Make sure to install the operator before you begin the next exercises.
 
 Installing the operator can be done by running the next commands on the hub cluster -
 
 ```
-<hub> $ oc create namespace ansible-resource-operator
+<hub> $ oc create namespace ansible-automation-platform
+
+<hub> $ cat >> ansible-operatorgroup.yaml << EOF
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: ansible-automation-operator-gp
+  namespace: ansible-automation-platform
+EOF
+
+<hub> $ oc apply -f ansible-operatorgroup.yaml
 
 <hub> $ cat >> ansible-operator.yaml << EOF
----
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: awx-resource-operator
-  namespace: ansible-resource-operator
+  name: ansible-automation-operator
+  namespace: ansible-automation-platform
 spec:
-  channel: release-0.1
+  channel: stable-2.1-cluster-scoped
   installPlanApproval: Automatic
-  name: awx-resource-operator
+  name: ansible-automation-platform-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: awx-resource-operator.v0.1.1
 EOF
 
 <hub> $ oc apply -f ansible-operator.yaml
