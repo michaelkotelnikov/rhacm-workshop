@@ -1,12 +1,4 @@
 ---
-- name: Log in (obtain access token)
-  k8s_auth:
-    username: "{{ k8s_username }}"
-    password: "{{ k8s_password }}"
-    host: "{{ k8s_api_url }}"
-    validate_certs: no
-  register: k8s_auth_results
-
 - name: Validate the state of the wanted Namespace
   k8s:
     name: "{{ k8s_namespace_name }}"
@@ -14,5 +6,6 @@
     kind: Namespace
     state: "{{ k8s_namespace_state }}"
     host: "{{ k8s_api_url }}"
-    api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
+    username: "{{ k8s_username }}"
+    password: "{{ k8s_password }}"
     validate_certs: no

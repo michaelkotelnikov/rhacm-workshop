@@ -6,4 +6,12 @@
 6. mkdir /var/www/html/logs
 7. Create AAP project
 8. Create AAP job template, call it Logger, prompt vars and inventories, associate with logger-playbook.yml
-9. 
+9. passwd root
+10. Create an inventory with localhost in it.
+11. Associate the ansible_host variable with the inventory
+12. Create a credential for root and associate with job template
+
+
+13. Create a jobtemplate named K8S-Namespace for policy exercise
+14. Associate the job template with the namespace-playbook.yml
+15. ansible-galaxy collection install community.kubernetes
