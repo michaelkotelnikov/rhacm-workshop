@@ -1,6 +1,6 @@
 ---
 - name: Validate the state of the wanted Namespace
-  k8s:
+  community.kubernetes.k8s:
     name: "{{ k8s_namespace_name }}"
     api_version: v1
     kind: Namespace
