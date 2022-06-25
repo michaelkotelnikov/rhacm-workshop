@@ -7,7 +7,7 @@
       - kubernetes
 
 - name: Log in (obtain access token)
-  community.okd.openshift_auth:
+  openshift_auth:
     username: "{{ k8s_username }}"
     password: "{{ k8s_password }}"
     host: "{{ k8s_api_url }}"
