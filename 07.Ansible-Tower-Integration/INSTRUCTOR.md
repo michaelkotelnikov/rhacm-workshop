@@ -6,8 +6,8 @@ This section seeks to help an instructor setup an Ansible Automation Platform en
 * Install an Ansible Automation Platform instance on an external VM (Red Hat employees can use RHPDS).
 
 ## Preperations for exercise 1 (Integration with Applications Lifecycle) -
-1. Log into the Ansible Automation Platform web interface and create an Ansible Automation Platform application at _Administration_ -> _Applications_
-2. Create token for admin user for application at _Users_-> _admin_ -> _Tokens_ -> _Add_. Select the created application and the _Write_ scope. Copy the token to a local machine
+1. Log into the Ansible Automation Platform web interface and create an Ansible Automation Platform application at _Administration_ -> _Applications_.
+2. Create token for admin user for application at _Users_-> _admin_ -> _Tokens_ -> _Add_. Select the created application and the _Write_ scope. Copy the token to a local machine.
 3. In order to host the participants log files, on the Ansible Automation Platform server, install an httpd server by running the next command - `yum install -y httpd`.
 4. To allow the httpd server to serve on port 80, on the Ansible Automation Platform server, remove all `port 80` listeners at - `/etc/nginx/nginx.conf`.
 5. Restart the Nginx server to apply the configurations, run the next command - `systemctl restart nginx`.
