@@ -1,4 +1,7 @@
 ---
 - hosts: localhost
+  collections:
+    - community.kubernetes
+    - community.okd
   roles:
     - k8s-namespace
