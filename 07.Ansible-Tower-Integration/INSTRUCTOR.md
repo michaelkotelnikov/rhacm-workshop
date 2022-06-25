@@ -15,3 +15,4 @@
 13. Create a jobtemplate named K8S-Namespace for policy exercise
 14. Associate the job template with the namespace-playbook.yml
 15. ansible-galaxy collection install community.kubernetes
+16. pip3 install openshift
