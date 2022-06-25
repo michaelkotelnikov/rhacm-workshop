@@ -1,4 +1,11 @@
 ---
+- name: install pre-requisites
+  pip:
+    name:
+      - openshift
+      - pyyaml
+      - kubernetes
+
 - name: Log in (obtain access token)
   community.okd.openshift_auth:
     username: "{{ k8s_username }}"
@@ -6,7 +13,6 @@
     host: "{{ k8s_api_url }}"
     validate_certs: no
   register: k8s_auth_results
-
 
 - name: Validate the state of the wanted Namespace
   k8s:
