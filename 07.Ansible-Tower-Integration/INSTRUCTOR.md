@@ -1,4 +1,4 @@
-# Instructure Guide
+# Instructor Guide
 
 This section seeks to help an instructor setup an Ansible Automation Platform environment to provide the workshop participants to use.
 
