@@ -16,3 +16,4 @@
 14. Associate the job template with the namespace-playbook.yml
 15. ansible-galaxy collection install community.kubernetes
 16. pip3 install openshift
+17. ansible-galaxy collection install community.okd
