@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app: webserver
-  name: webserver-dev
+  name: webserver
 spec:
   ports:
   - name: 8080-tcp
