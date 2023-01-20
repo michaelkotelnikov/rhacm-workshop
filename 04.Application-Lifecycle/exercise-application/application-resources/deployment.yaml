@@ -22,7 +22,7 @@ spec:
               name: webserver
           volumeMounts:
             - mountPath: /app/application.html
-              name: application-prod
+              name: application-dev
               subPath: application.html
       volumes:
         - configMap:
@@ -30,5 +30,5 @@ spec:
             items:
             - key: application.html
               path: application.html
-            name: application-prod
-          name: application-prod
+            name: application-dev
+          name: application-dev
