@@ -306,7 +306,7 @@ Create the next ManagedClusterSet resource. The ManagedClusterSet resource will 
 ```
 <hub> $ cat >> managedclusterset.yaml << EOF
 ---
-apiVersion: cluster.open-cluster-management.io/v1beta1
+apiVersion: cluster.open-cluster-management.io/v1beta2
 kind: ManagedClusterSet
 metadata:
   name: all-clusters
@@ -332,7 +332,7 @@ Create the ManagedClusterSetBinding resource to bind the `local-cluster` Managed
 ```
 <hub> $ cat >> managedclustersetbinding.yaml << EOF
 ---
-apiVersion: cluster.open-cluster-management.io/v1beta1
+apiVersion: cluster.open-cluster-management.io/v1beta2
 kind: ManagedClusterSetBinding
 metadata:
   name: all-clusters
@@ -349,7 +349,7 @@ Create the Placement resource and bind it to `all-clusters` ManagedClusterSet. N
 ```
 <hub> $ cat >> placement.yaml << EOF
 ---
-apiVersion: cluster.open-cluster-management.io/v1alpha1
+apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: Placement
 metadata:
   name: all-clusters
